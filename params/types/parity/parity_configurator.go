@@ -963,6 +963,18 @@ func (spec *ParityChainSpec) SetEthashECIP1041Transition(n *uint64) error {
 	return nil
 }
 
+func (spec *ParityChainSpec) GetEthashECIP1043Transition() *uint64 {
+	if c.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
+		return nil
+	}
+	return spec.Engine.Ethash.Params.MagicDagEpochBlock.Uint64P()
+}
+
+func (spec *ParityChainSpec) SetEthashECIP1043Transition(n *uint64) error {
+	spec.Engine.Ethash.Params.MagicDagEpochBlock = new(ParityU64).SetUint64(n)
+	return nil
+}
+
 func (spec *ParityChainSpec) GetEthashDifficultyBombDelaySchedule() ctypes.Uint64BigMapEncodesHex {
 	if spec.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
 		return nil
