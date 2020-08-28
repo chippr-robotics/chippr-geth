@@ -27,13 +27,13 @@ import (
 	"time"
 	"unsafe"
 
+	"github.com/ethereum/go-ethereum/consensus"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/bitutil"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/log"
 	"golang.org/x/crypto/sha3"
 )
-
 const (
 	datasetInitBytes   = 1 << 30 // Bytes in dataset at genesis
 	datasetGrowthBytes = 1 << 23 // Dataset growth per epoch
@@ -50,8 +50,15 @@ const (
 
 // cacheSize returns the size of the ethash verification cache that belongs to a certain
 // block number.
-func cacheSize(block uint64) uint64 {
-	epoch := int(block / epochLength)
+// the ecip1043 transition will freeze the epoch at a fixed size ~1.33 GB allowing smaller cards to mine after the transition
+// it is hardcoded to 42 rather than a variable to reduce failure across clients
+
+func cacheSize(config ctypes.ChainConfigurator,	block uint64) uint64 {	
+    if config.IsEnabled(config.GetEthashECIP1043Transition, header.Number) {
+		epoch := 42
+	} else {
+		epoch := int(block / epochLength)
+	}
 	if epoch < maxEpoch {
 		return cacheSizes[epoch]
 	}
@@ -71,8 +78,15 @@ func calcCacheSize(epoch int) uint64 {
 
 // datasetSize returns the size of the ethash mining dataset that belongs to a certain
 // block number.
-func datasetSize(block uint64) uint64 {
-	epoch := int(block / epochLength)
+// the ecip1043 transition will freeze the epoch at a fixed size ~1.33 GB allowing smaller cards to mine after the transition
+// it is hardcoded to 42 rather than a variable to reduce failure across clients
+
+func datasetSize(config ctypes.ChainConfigurator, block uint64) uint64 {
+	if config.IsEnabled(config.GetEthashECIP1043Transition, header.Number) {
+		epoch := 42
+	} else {
+		epoch := int(block / epochLength)
+	}
 	if epoch < maxEpoch {
 		return datasetSizes[epoch]
 	}
