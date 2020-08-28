@@ -748,6 +748,22 @@ func (c *CoreGethChainConfig) SetEthashECIP1041Transition(n *uint64) error {
 	return nil
 }
 
+func (c *CoreGethChainConfig) GetEthashECIP1043Transition() *uint64 {
+	if c.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
+		return nil
+	}
+	return bigNewU64(c.MagicDagEpochBlock)
+}
+
+func (c *CoreGethChainConfig) SetEthashECIP1043Transition(n *uint64) error {
+	if c.Ethash == nil {
+		return ctypes.ErrUnsupportedConfigFatal
+	}
+	c.MagicDagEpochBlock = setBig(c.MagicDagEpochBlock, n)
+	return nil
+}
+
+
 func (c *CoreGethChainConfig) GetEthashDifficultyBombDelaySchedule() ctypes.Uint64BigMapEncodesHex {
 	if c.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
 		return nil
