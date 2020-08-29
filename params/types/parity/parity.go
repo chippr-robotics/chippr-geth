@@ -42,7 +42,7 @@ type ParityChainSpec struct {
 				DurationLimit          *math.HexOrDecimal256         `json:"durationLimit"`
 				BlockReward            ctypes.Uint64BigValOrMapHex   `json:"blockReward"`
 				DifficultyBombDelays   ctypes.Uint64BigMapEncodesHex `json:"difficultyBombDelays,omitempty"`
-				MagicDagEpochBlock     *ParityU64                    `json:"ecip1043Transition,omitempty"`     
+				//MagicDagEpochBlock     *ParityU64                    `json:"ecip1043Transition,omitempty"`     
 				// Caches.
 				// These inferences require computation.
 				// This makes it so that the 'heavy-lifting' only has to run once.
