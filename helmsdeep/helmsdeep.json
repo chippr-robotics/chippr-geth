@@ -29,7 +29,7 @@
       "ecip1017FBlock": 0,
       "ecip1017EraRounds": 2000000,
       "disposalBlock": 0,
-      "ecip1043Block": 300000,
+      "ecip1043Block": 60000,
       "ethash": {},
       "requireBlockHashes": null
     },
