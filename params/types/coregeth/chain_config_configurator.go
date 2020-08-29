@@ -759,7 +759,7 @@ func (c *CoreGethChainConfig) SetEthashECIP1043Transition(n *uint64) error {
 	if c.Ethash == nil {
 		return ctypes.ErrUnsupportedConfigFatal
 	}
-	c.MagicDagEpochBlock = setBig(c.MagicDagEpochBlock, n)
+	c.ECIP1043Block = setBig(c.MagicDagEpochBlock, n)
 	return nil
 }
 
