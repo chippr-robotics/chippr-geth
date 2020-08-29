@@ -55,7 +55,7 @@ const (
 
 func cacheSize(config ctypes.ChainConfigurator,	block uint64) uint64 {	
     if config.IsEnabled(config.GetEthashECIP1043Transition, header.Number) {
-		epoch := 42
+		epoch := 64
 	} else {
 		epoch := int(block / epochLength)
 	}
@@ -83,7 +83,7 @@ func calcCacheSize(epoch int) uint64 {
 
 func datasetSize(config ctypes.ChainConfigurator, block uint64) uint64 {
 	if config.IsEnabled(config.GetEthashECIP1043Transition, header.Number) {
-		epoch := 42
+		epoch := 64
 	} else {
 		epoch := int(block / epochLength)
 	}
