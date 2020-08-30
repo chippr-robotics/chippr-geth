@@ -964,7 +964,7 @@ func (spec *ParityChainSpec) SetEthashECIP1041Transition(n *uint64) error {
 }
 
 func (spec *ParityChainSpec) GetEthashECIP1043Transition() *uint64 {
-	if c.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
+	if spec.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
 		return nil
 	}
 	return spec.Engine.Ethash.Params.ECIP1043Block.Uint64P()

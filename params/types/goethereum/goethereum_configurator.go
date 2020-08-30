@@ -669,7 +669,7 @@ func (c *ChainConfig) GetEthashECIP1043Transition() *uint64 {
 	return nil
 }
 
-func (c *ChainConfig) SetEthashECIP1043Transition(n *uint64) error {
+func (c *ChainConfig) SetEthashECIP1043Transition(i *uint64) error {
 	if i == nil {
 		return nil
 	}
