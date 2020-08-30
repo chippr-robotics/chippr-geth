@@ -410,6 +410,7 @@ type Config struct {
 	DatasetsOnDisk   int
 	DatasetsLockMmap bool
 	PowMode          Mode
+	ECIP1043         int
 
 	Log log.Logger `toml:"-"`
 }
@@ -454,6 +455,9 @@ func New(config Config, notify []string, noverify bool) *Ethash {
 	}
 	if config.DatasetDir != "" && config.DatasetsOnDisk > 0 {
 		config.Log.Info("Disk storage enabled for ethash DAGs", "dir", config.DatasetDir, "count", config.DatasetsOnDisk)
+	}
+	if config.ECIP1043 > 0 {
+		config.Log.Info("Dag lock enabled. After activation block Epoch will lock to", config.ECIP1043)
 	}
 	ethash := &Ethash{
 		config:   config,
@@ -553,7 +557,7 @@ func (ethash *Ethash) Close() error {
 // by first checking against a list of in-memory caches, then against caches
 // stored on disk, and finally generating one if none can be found.
 func (ethash *Ethash) cache(block uint64) *cache {
-	epoch := block / epochLength
+	epoch := ethash.config.ECIP1043 > 0 ? ethash.config.ECIP1043 : block / epochLength
 	currentI, futureI := ethash.caches.get(epoch)
 	current := currentI.(*cache)
 
@@ -576,7 +580,7 @@ func (ethash *Ethash) cache(block uint64) *cache {
 // generates on a background thread.
 func (ethash *Ethash) dataset(block uint64, async bool) *dataset {
 	// Retrieve the requested ethash dataset
-	epoch := block / epochLength
+	epoch := ethash.config.ECIP1043 > 0 ? ethash.config.ECIP1043 : block / epochLength
 	currentI, futureI := ethash.datasets.get(epoch)
 	current := currentI.(*dataset)
 
