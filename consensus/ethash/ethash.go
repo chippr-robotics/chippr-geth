@@ -553,6 +553,14 @@ func (ethash *Ethash) Close() error {
 	return err
 }
 
+
+// sets a frozen dag for ECIP 1043
+func (ethash *Ethash) setDag()  error {
+	var err error
+	ethash.config.ECIP1043 := 64
+	return err
+}
+
 // cache tries to retrieve a verification cache for the specified block number
 // by first checking against a list of in-memory caches, then against caches
 // stored on disk, and finally generating one if none can be found.
