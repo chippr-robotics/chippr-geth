@@ -479,7 +479,8 @@ func (ethash *Ethash) verifySeal(chain consensus.ChainHeaderReader, header *type
 	}
 	// Recompute the digest and PoW values
 	number := header.Number.Uint64()
-
+    ethash.config.ECIP1043 := chain.Config().IsEnabled(chain.Config().GetEthashEIP1043Transition, number) ? int(64) : int(0)
+	
 	var (
 		digest []byte
 		result []byte
@@ -502,7 +503,7 @@ func (ethash *Ethash) verifySeal(chain consensus.ChainHeaderReader, header *type
 	if !fulldag {
 		cache := ethash.cache(number)
         //ecip1043 calculate the size from the first block of the fake epoch if set
-		size := ethash.config.ECIP1043 > 0 ? datasetSize(ethash.config.ECIP1043 * 30001) : datasetSize(number)
+		size := datasetSize(number)
 		if ethash.config.PowMode == ModeTest {
 			size = 32 * 1024
 		}
