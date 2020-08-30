@@ -63,11 +63,12 @@ type ParityChainSpec struct {
 				DaoHardforkTransition  *ParityU64       `json:"daoHardforkTransition,omitempty"`
 				DaoHardforkBeneficiary *common.Address  `json:"daoHardforkBeneficiary,omitempty"`
 				DaoHardforkAccounts    []common.Address `json:"daoHardforkAccounts,omitempty"`
-
+				
 				BombDefuseTransition       *ParityU64 `json:"bombDefuseTransition"`
 				ECIP1010PauseTransition    *ParityU64 `json:"ecip1010PauseTransition,omitempty"`
 				ECIP1010ContinueTransition *ParityU64 `json:"ecip1010ContinueTransition,omitempty"`
 				ECIP1017EraRounds          *ParityU64 `json:"ecip1017EraRounds,omitempty"`
+				ECIP1043Block              *ParityU64 `json:"ECIP1043Block,omitempty"`
 			} `json:"params"`
 		} `json:"Ethash,omitempty"`
 		Clique struct {

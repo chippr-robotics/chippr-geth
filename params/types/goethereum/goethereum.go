@@ -70,6 +70,7 @@ type ChainConfig struct {
 
 	EIP1706Transition  *big.Int `json:"-"`
 	ECIP1080Transition *big.Int `json:"-"`
+	ECIP1043Transition *big.Int `json:"-"`
 }
 
 // String implements the fmt.Stringer interface.
