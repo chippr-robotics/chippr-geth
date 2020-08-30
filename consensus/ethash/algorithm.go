@@ -132,13 +132,19 @@ func makeHasher(h hash.Hash) hasher {
 
 // seedHash is the seed to use for generating a verification cache and the mining
 // dataset.
-func seedHash(block uint64) []byte {
+func seedHash(config ctypes.ChainConfigurator, block uint64) []byte {
 	seed := make([]byte, 32)
 	if block < epochLength {
 		return seed
 	}
 	keccak256 := makeHasher(sha3.NewLegacyKeccak256())
-	for i := 0; i < int(block/epochLength); i++ {
+	//ECIP1043Block
+	if config.IsEnabled(config.GetEthashECIP1043Transition, header.Number) {
+		epoch := 64
+	} else {
+		epoch := int(block / epochLength)
+	}
+	for i := 0; i < epoch; i++ {
 		keccak256(seed, seed)
 	}
 	return seed
