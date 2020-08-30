@@ -502,7 +502,7 @@ func (ethash *Ethash) verifySeal(chain consensus.ChainHeaderReader, header *type
 	if !fulldag {
 		cache := ethash.cache(number)
 
-		size := datasetSize(chain ,number)
+		size := datasetSize(number)
 		if ethash.config.PowMode == ModeTest {
 			size = 32 * 1024
 		}
