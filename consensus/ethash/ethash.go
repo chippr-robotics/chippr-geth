@@ -557,7 +557,7 @@ func (ethash *Ethash) Close() error {
 // sets a frozen dag for ECIP 1043
 func (ethash *Ethash) setDag()  error {
 	var err error
-	ethash.config.ECIP1043 := 64
+	ethash.config.ECIP1043 = 64
 	return err
 }
 
