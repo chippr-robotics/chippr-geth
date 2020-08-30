@@ -27,14 +27,13 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/ethereum/go-ethereum/consensus"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/bitutil"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/params/types/ctypes"
 	"golang.org/x/crypto/sha3"
 )
+
 const (
 	datasetInitBytes   = 1 << 30 // Bytes in dataset at genesis
 	datasetGrowthBytes = 1 << 23 // Dataset growth per epoch
@@ -51,15 +50,8 @@ const (
 
 // cacheSize returns the size of the ethash verification cache that belongs to a certain
 // block number.
-// the ecip1043 transition will freeze the epoch at a fixed size ~1.33 GB allowing smaller cards to mine after the transition
-// it is hardcoded to 42 rather than a variable to reduce failure across clients
-
-func cacheSize(config ctypes.ChainConfigurator,	block uint64) uint64 {	
-    if config.IsEnabled(config.GetEthashECIP1043Transition, block) {
-		epoch := 64
-	} else {
-		epoch := int(block / epochLength)
-	}
+func cacheSize(block uint64) uint64 {
+	epoch := int(block / epochLength)
 	if epoch < maxEpoch {
 		return cacheSizes[epoch]
 	}
@@ -79,15 +71,8 @@ func calcCacheSize(epoch int) uint64 {
 
 // datasetSize returns the size of the ethash mining dataset that belongs to a certain
 // block number.
-// the ecip1043 transition will freeze the epoch at a fixed size ~1.33 GB allowing smaller cards to mine after the transition
-// it is hardcoded to 42 rather than a variable to reduce failure across clients
-
-func datasetSize(config ctypes.ChainConfigurator, block uint64) uint64 {
-	if config.IsEnabled(config.GetEthashECIP1043Transition, block) {
-		epoch := 64
-	} else {
-		epoch := int(block / epochLength)
-	}
+func datasetSize(block uint64) uint64 {
+	epoch := int(block / epochLength)
 	if epoch < maxEpoch {
 		return datasetSizes[epoch]
 	}
@@ -133,19 +118,13 @@ func makeHasher(h hash.Hash) hasher {
 
 // seedHash is the seed to use for generating a verification cache and the mining
 // dataset.
-func seedHash(config ctypes.ChainConfigurator, block uint64) []byte {
+func seedHash(block uint64) []byte {
 	seed := make([]byte, 32)
 	if block < epochLength {
 		return seed
 	}
 	keccak256 := makeHasher(sha3.NewLegacyKeccak256())
-	//ECIP1043Block
-	if config.IsEnabled(config.GetEthashECIP1043Transition, block) {
-		epoch := 64
-	} else {
-		epoch := int(block / epochLength)
-	}
-	for i := 0; i < epoch; i++ {
+	for i := 0; i < int(block/epochLength); i++ {
 		keccak256(seed, seed)
 	}
 	return seed
