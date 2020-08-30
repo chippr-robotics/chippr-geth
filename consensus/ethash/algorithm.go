@@ -32,6 +32,7 @@ import (
 	"github.com/ethereum/go-ethereum/common/bitutil"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/log"
+	"github.com/ethereum/go-ethereum/params/types/ctypes"
 	"golang.org/x/crypto/sha3"
 )
 const (
@@ -54,7 +55,7 @@ const (
 // it is hardcoded to 42 rather than a variable to reduce failure across clients
 
 func cacheSize(config ctypes.ChainConfigurator,	block uint64) uint64 {	
-    if config.IsEnabled(config.GetEthashECIP1043Transition, header.Number) {
+    if config.IsEnabled(config.GetEthashECIP1043Transition, block) {
 		epoch := 64
 	} else {
 		epoch := int(block / epochLength)
@@ -82,7 +83,7 @@ func calcCacheSize(epoch int) uint64 {
 // it is hardcoded to 42 rather than a variable to reduce failure across clients
 
 func datasetSize(config ctypes.ChainConfigurator, block uint64) uint64 {
-	if config.IsEnabled(config.GetEthashECIP1043Transition, header.Number) {
+	if config.IsEnabled(config.GetEthashECIP1043Transition, block) {
 		epoch := 64
 	} else {
 		epoch := int(block / epochLength)
@@ -139,7 +140,7 @@ func seedHash(config ctypes.ChainConfigurator, block uint64) []byte {
 	}
 	keccak256 := makeHasher(sha3.NewLegacyKeccak256())
 	//ECIP1043Block
-	if config.IsEnabled(config.GetEthashECIP1043Transition, header.Number) {
+	if config.IsEnabled(config.GetEthashECIP1043Transition, block) {
 		epoch := 64
 	} else {
 		epoch := int(block / epochLength)

@@ -34,6 +34,7 @@ import (
 	"unsafe"
 
 	mmap "github.com/edsrzf/mmap-go"
+	"github.com/ethereum/go-ethereum/params/types/ctypes"
 	"github.com/ethereum/go-ethereum/consensus"
 	"github.com/ethereum/go-ethereum/log"
 	"github.com/ethereum/go-ethereum/metrics"
@@ -377,8 +378,8 @@ func (d *dataset) finalizer() {
 }
 
 // MakeCache generates a new ethash cache and optionally stores it to disk.
-func MakeCache(block uint64, dir string) {
-	if config.IsEnabled(config.GetEthashECIP1043Transition, header.Number) {
+func MakeCache(config ctypes.ChainConfigurator, block uint64, dir string) {
+	if config.IsEnabled(config.GetEthashECIP1043Transition, block) {
 		c := cache{epoch: 64}
 	} else {
 		c := cache{epoch: block / epochLength}
@@ -387,8 +388,8 @@ func MakeCache(block uint64, dir string) {
 }
 
 // MakeDataset generates a new ethash dataset and optionally stores it to disk.
-func MakeDataset(block uint64, dir string) {
-	if config.IsEnabled(config.GetEthashECIP1043Transition, header.Number) {
+func MakeDataset(config ctypes.ChainConfigurator, block uint64, dir string) {
+	if config.IsEnabled(config.GetEthashECIP1043Transition, block) {
 		d := dataset{epoch: 64}
 	} else {
 		d := dataset{epoch: block / epochLength}
