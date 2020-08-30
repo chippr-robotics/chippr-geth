@@ -752,14 +752,14 @@ func (c *CoreGethChainConfig) GetEthashECIP1043Transition() *uint64 {
 	if c.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
 		return nil
 	}
-	return bigNewU64(c.MagicDagEpochBlock)
+	return bigNewU64(c.ECIP1043Block)
 }
 
 func (c *CoreGethChainConfig) SetEthashECIP1043Transition(n *uint64) error {
 	if c.Ethash == nil {
 		return ctypes.ErrUnsupportedConfigFatal
 	}
-	c.ECIP1043Block = setBig(c.MagicDagEpochBlock, n)
+	c.ECIP1043Block = setBig(c.ECIP1043Block, n)
 	return nil
 }
 
