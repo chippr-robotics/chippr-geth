@@ -378,13 +378,21 @@ func (d *dataset) finalizer() {
 
 // MakeCache generates a new ethash cache and optionally stores it to disk.
 func MakeCache(block uint64, dir string) {
-	c := cache{epoch: block / epochLength}
+	if config.IsEnabled(config.GetEthashECIP1043Transition, header.Number) {
+		c := cache{epoch: 64}
+	} else {
+		c := cache{epoch: block / epochLength}
+	}
 	c.generate(dir, math.MaxInt32, false, false)
 }
 
 // MakeDataset generates a new ethash dataset and optionally stores it to disk.
 func MakeDataset(block uint64, dir string) {
-	d := dataset{epoch: block / epochLength}
+	if config.IsEnabled(config.GetEthashECIP1043Transition, header.Number) {
+		d := dataset{epoch: 64}
+	} else {
+		d := dataset{epoch: block / epochLength}
+	}
 	d.generate(dir, math.MaxInt32, false, false)
 }
 
