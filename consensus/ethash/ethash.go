@@ -48,7 +48,7 @@ var (
 	two256 = new(big.Int).Exp(big.NewInt(2), big.NewInt(256), big.NewInt(0))
 
 	// sharedEthash is a full instance that can be shared between multiple users.
-	sharedEthash = New(Config{"", 3, 0, false, "", 1, 0, false, ModeNormal, nil}, nil, false)
+	sharedEthash = New(Config{"", 3, 0, false, "", 1, 0, false, ModeNormal, 0, nil}, nil, false)
 
 	// algorithmRevision is the data structure version used for file naming.
 	algorithmRevision = 23
@@ -401,7 +401,7 @@ const (
 
 // Config are the configuration parameters of the ethash.
 type Config struct {
-	CacheDir         string
+	CacheDir         string 
 	CachesInMem      int
 	CachesOnDisk     int
 	CachesLockMmap   bool
