@@ -48,7 +48,7 @@ var (
 	two256 = new(big.Int).Exp(big.NewInt(2), big.NewInt(256), big.NewInt(0))
 
 	// sharedEthash is a full instance that can be shared between multiple users.
-	sharedEthash = New(Config{"", 3, 0, false, "", 1, 0, false, ModeNormal, 0, nil}, nil, false)
+	sharedEthash = New(Config{"", 3, 0, false, "", 1, 0, false, ModeNormal, nil}, nil, false)
 
 	// algorithmRevision is the data structure version used for file naming.
 	algorithmRevision = 23
@@ -401,7 +401,7 @@ const (
 
 // Config are the configuration parameters of the ethash.
 type Config struct {
-	CacheDir         string 
+	CacheDir         string
 	CachesInMem      int
 	CachesOnDisk     int
 	CachesLockMmap   bool
@@ -428,7 +428,8 @@ type Ethash struct {
 	update   chan struct{} // Notification channel to update mining parameters
 	hashrate metrics.Meter // Meter tracking the average hashrate
 	remote   *remoteSealer
-        ECIP1043  uint 
+	ECIP1043  uint         // when != 0 ECIP 1043 is in effect and all epochs should be calculated as epoch 64
+	
 	// The fields below are hooks for testing
 	shared    *Ethash       // Shared PoW verifier to avoid cache regeneration
 	fakeFail  uint64        // Block number which fails PoW check even in fake mode
@@ -556,7 +557,6 @@ func (ethash *Ethash) Close() error {
 // by first checking against a list of in-memory caches, then against caches
 // stored on disk, and finally generating one if none can be found.
 func (ethash *Ethash) cache(block uint64) *cache {
-
 	epoch := block / epochLength
    //ecip1043 if the fork is activated pull the value of the epoch from the variables
 	if ethash.ECIP1043 != 0 {
@@ -587,7 +587,7 @@ func (ethash *Ethash) dataset(block uint64, async bool) *dataset {
 	// Retrieve the requested ethash dataset
 	epoch := block / epochLength
     //ecip1043 if the fork is activated pull the value of the epoch from the variables
-	if ethash.ECIP1043 != 0 {
+    if ethash.ECIP1043 != 0 {
 		epoch = uint64(ethash.ECIP1043)
     }
 	currentI, futureI := ethash.datasets.get(epoch)

@@ -477,7 +477,6 @@ func (ethash *Ethash) verifySeal(chain consensus.ChainHeaderReader, header *type
 	if header.Difficulty.Sign() <= 0 {
 		return errInvalidDifficulty
 	}
-
 	// Recompute the digest and PoW values
 	number := header.Number.Uint64()
 
@@ -508,7 +507,6 @@ func (ethash *Ethash) verifySeal(chain consensus.ChainHeaderReader, header *type
 	// If slow-but-light PoW verification was requested (or DAG not yet ready), use an ethash cache
 	if !fulldag {
 		cache := ethash.cache(number)
-        //ecip1043 calculate the size from the first block of the fake epoch if set
 		size := datasetSize(number)
 		if ethash.config.PowMode == ModeTest {
 			size = 32 * 1024

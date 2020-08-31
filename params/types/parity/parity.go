@@ -42,7 +42,6 @@ type ParityChainSpec struct {
 				DurationLimit          *math.HexOrDecimal256         `json:"durationLimit"`
 				BlockReward            ctypes.Uint64BigValOrMapHex   `json:"blockReward"`
 				DifficultyBombDelays   ctypes.Uint64BigMapEncodesHex `json:"difficultyBombDelays,omitempty"`
-				//MagicDagEpochBlock     *ParityU64                    `json:"ecip1043Transition,omitempty"`     
 				// Caches.
 				// These inferences require computation.
 				// This makes it so that the 'heavy-lifting' only has to run once.
@@ -63,7 +62,6 @@ type ParityChainSpec struct {
 				DaoHardforkTransition  *ParityU64       `json:"daoHardforkTransition,omitempty"`
 				DaoHardforkBeneficiary *common.Address  `json:"daoHardforkBeneficiary,omitempty"`
 				DaoHardforkAccounts    []common.Address `json:"daoHardforkAccounts,omitempty"`
-				
 				BombDefuseTransition       *ParityU64 `json:"bombDefuseTransition"`
 				ECIP1010PauseTransition    *ParityU64 `json:"ecip1010PauseTransition,omitempty"`
 				ECIP1010ContinueTransition *ParityU64 `json:"ecip1010ContinueTransition,omitempty"`
