@@ -752,6 +752,7 @@ func (c *CoreGethChainConfig) GetEthashECIP1043Transition() *uint64 {
 	if c.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
 		return nil
 	}
+	
 	return bigNewU64(c.ECIP1043Block)
 }
 

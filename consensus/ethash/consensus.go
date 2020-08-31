@@ -484,7 +484,7 @@ func (ethash *Ethash) verifySeal(chain consensus.ChainHeaderReader, header *type
 	//enforce ecip1043 if needed
 	if chain.Config().IsEnabled(chain.Config().GetEthashECIP1043Transition, header.Number) {
 		ethash.setDag() 
-		number := Uint64(1920064)	
+		number = 1920064	
 	}
 	
 	var (

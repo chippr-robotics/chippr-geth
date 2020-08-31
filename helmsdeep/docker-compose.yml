@@ -17,6 +17,7 @@ services:
                --rpcaddr 0.0.0.0
                --rpcport 8554
                --rpcvhosts="*"
+               --nat extip:172.16.0.234
     ports:
       - '${HD_1_RPC}:8554'
       - '${HD_1_P2P}:30303'
