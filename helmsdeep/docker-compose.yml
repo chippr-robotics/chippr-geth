@@ -50,6 +50,7 @@ services:
                --rpcaddr 0.0.0.0
                --rpcport 8554
                --rpcvhosts="*"
+               --bootnodes ${HD_BOOTNODE}
     ports:
       - '${HD_2_RPC}:8554'
       - '${HD_2_P2P}:30303'
@@ -78,6 +79,7 @@ services:
                --rpcaddr 0.0.0.0
                --rpcport 8554
                --rpcvhosts="*"
+               --bootnodes ${HD_BOOTNODE}
     ports:
       - '${HD_3_RPC}:8554'
       - '${HD_3_P2P}:30303'
@@ -106,6 +108,7 @@ services:
                --rpcaddr 0.0.0.0
                --rpcport 8554
                --rpcvhosts="*"
+               --bootnodes ${HD_BOOTNODE}
     ports:
       - '${HD_4_RPC}:8554'
       - '${HD_4_P2P}:30303'
@@ -134,6 +137,7 @@ services:
                --rpcaddr 0.0.0.0
                --rpcport 8554
                --rpcvhosts="*"
+               --bootnodes ${HD_BOOTNODE}
     ports:
       - '${HD_5_RPC}:8554'
       - '${HD_5_P2P}:30303'
@@ -162,6 +166,7 @@ services:
                --rpcaddr 0.0.0.0
                --rpcport 8554
                --rpcvhosts="*"
+               --bootnodes ${HD_BOOTNODE}
     ports:
       - '${HD_6_RPC}:8554'
       - '${HD_6_P2P}:30303'
