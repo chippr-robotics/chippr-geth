@@ -481,7 +481,7 @@ func (ethash *Ethash) verifySeal(chain consensus.ChainHeaderReader, header *type
 	// Recompute the digest and PoW values
 	number := header.Number.Uint64()
 
-	//enforce ecip1043 if needed
+	//enforce ecip1043 if needed setting the epoch to a fixed value
 	if chain.Config().IsEnabled(chain.Config().GetEthashECIP1043Transition, header.Number) {
 		ethash.ECIP1043 = 64
 		number = 1920064

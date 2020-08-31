@@ -410,7 +410,6 @@ type Config struct {
 	DatasetsOnDisk   int
 	DatasetsLockMmap bool
 	PowMode          Mode
-	ECIP1043         int
 
 	Log log.Logger `toml:"-"`
 }
@@ -553,19 +552,13 @@ func (ethash *Ethash) Close() error {
 	return err
 }
 
-
-// sets a frozen dag for ECIP 1043
-func (ethash *Ethash) setDag()  error {
-	var err error
-	ethash.ECIP1043 = 64
-	return err
-}
-
 // cache tries to retrieve a verification cache for the specified block number
 // by first checking against a list of in-memory caches, then against caches
 // stored on disk, and finally generating one if none can be found.
 func (ethash *Ethash) cache(block uint64) *cache {
-        epoch := block / epochLength
+
+	epoch := block / epochLength
+   //ecip1043 if the fork is activated pull the value of the epoch from the variables
 	if ethash.ECIP1043 != 0 {
 		epoch = uint64(ethash.ECIP1043)
 	}
@@ -592,11 +585,11 @@ func (ethash *Ethash) cache(block uint64) *cache {
 // generates on a background thread.
 func (ethash *Ethash) dataset(block uint64, async bool) *dataset {
 	// Retrieve the requested ethash dataset
-		epoch := block / epochLength
-
+	epoch := block / epochLength
+    //ecip1043 if the fork is activated pull the value of the epoch from the variables
 	if ethash.ECIP1043 != 0 {
 		epoch = uint64(ethash.ECIP1043)
-}
+    }
 	currentI, futureI := ethash.datasets.get(epoch)
 	current := currentI.(*dataset)
 
