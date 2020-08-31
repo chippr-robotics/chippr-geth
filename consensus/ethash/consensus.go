@@ -477,16 +477,16 @@ func (ethash *Ethash) verifySeal(chain consensus.ChainHeaderReader, header *type
 	if header.Difficulty.Sign() <= 0 {
 		return errInvalidDifficulty
 	}
-	
+
 	// Recompute the digest and PoW values
 	number := header.Number.Uint64()
-	
+
 	//enforce ecip1043 if needed
 	if chain.Config().IsEnabled(chain.Config().GetEthashECIP1043Transition, header.Number) {
-		ethash.setDag() 
-		number = 1920064	
-	}
-	
+		ethash.ECIP1043 = 64
+		number = 1920064
+        }
+
 	var (
 		digest []byte
 		result []byte
