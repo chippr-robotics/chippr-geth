@@ -1,4 +1,4 @@
-package chippr-geth
+package chipprgeth
 
 import (
 	"math/big"
