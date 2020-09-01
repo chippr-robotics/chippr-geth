@@ -25,7 +25,7 @@ import (
 
 var (
 	// MordorChainConfig is the chain parameters to run a node on the Ethereum Classic Mordor test network (PoW).
-	MordorChainConfig = &chippr-geth.ChipprGethChainConfig{
+	MordorChainConfig = &chipprgeth.ChipprGethChainConfig{
 		NetworkID: 7,
 		ChainID:   big.NewInt(63),
 		Ethash:    new(ctypes.EthashConfig),

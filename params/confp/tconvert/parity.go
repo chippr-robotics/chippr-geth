@@ -44,9 +44,9 @@ func NewParityChainSpec(network string, genesis *genesisT.Genesis, bootnodes []s
 
 // ToMultiGethGenesis converts a Parity chainspec to the corresponding MultiGeth datastructure.
 // Note that the return value 'core.Genesis' includes the respective 'params.ChipprGethChainConfig' values.
-func ParityConfigTochippr-gethGenesis(c *parity.ParityChainSpec) (*genesisT.Genesis, error) {
+func ParityConfigTochipprgethGenesis(c *parity.ParityChainSpec) (*genesisT.Genesis, error) {
 	mg := &genesisT.Genesis{
-		Config: &chippr-geth.ChipprGethChainConfig{},
+		Config: &chipprgeth.ChipprGethChainConfig{},
 	}
 
 	if err := confp.Convert(c, mg); err != nil {

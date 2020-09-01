@@ -81,8 +81,8 @@ func TestCheckCompatible(t *testing.T) {
 			},
 		},
 		{
-			stored: &chippr-geth.ChipprGethChainConfig{Ethash: new(ctypes.EthashConfig), EIP100FBlock: big.NewInt(30), EIP649FBlock: big.NewInt(30)},
-			new:    &chippr-geth.ChipprGethChainConfig{Ethash: new(ctypes.EthashConfig), EIP100FBlock: big.NewInt(24), EIP649FBlock: big.NewInt(24)},
+			stored: &chipprgeth.ChipprGethChainConfig{Ethash: new(ctypes.EthashConfig), EIP100FBlock: big.NewInt(30), EIP649FBlock: big.NewInt(30)},
+			new:    &chipprgeth.ChipprGethChainConfig{Ethash: new(ctypes.EthashConfig), EIP100FBlock: big.NewInt(24), EIP649FBlock: big.NewInt(24)},
 			head:   25,
 			wantErr: &confp.ConfigCompatError{
 				What:         "EIP100F fork block",
@@ -93,13 +93,13 @@ func TestCheckCompatible(t *testing.T) {
 		},
 		{
 			stored:  &goethereum.ChainConfig{Ethash: new(ctypes.EthashConfig), ByzantiumBlock: big.NewInt(30)},
-			new:     &chippr-geth.ChipprGethChainConfig{Ethash: new(ctypes.EthashConfig), EIP211FBlock: big.NewInt(26)},
+			new:     &chipprgeth.ChipprGethChainConfig{Ethash: new(ctypes.EthashConfig), EIP211FBlock: big.NewInt(26)},
 			head:    25,
 			wantErr: nil,
 		},
 		{
 			stored:  &goethereum.ChainConfig{Ethash: new(ctypes.EthashConfig), ByzantiumBlock: big.NewInt(30)},
-			new:     &chippr-geth.ChipprGethChainConfig{Ethash: new(ctypes.EthashConfig), EIP100FBlock: big.NewInt(26), EIP649FBlock: big.NewInt(26)},
+			new:     &chipprgeth.ChipprGethChainConfig{Ethash: new(ctypes.EthashConfig), EIP100FBlock: big.NewInt(26), EIP649FBlock: big.NewInt(26)},
 			head:    25,
 			wantErr: nil,
 		},
@@ -161,7 +161,7 @@ func TestCheckCompatible(t *testing.T) {
 				return c
 			}(),
 			new: func() ctypes.ChainConfigurator {
-				c := &chippr-geth.ChipprGethChainConfig{
+				c := &chipprgeth.ChipprGethChainConfig{
 					Ethash:       new(ctypes.EthashConfig),
 					DAOForkBlock: nil,
 				}
@@ -173,7 +173,7 @@ func TestCheckCompatible(t *testing.T) {
 		{
 			// v1.9.5 -> v1.9.7
 			stored: func() ctypes.ChainConfigurator {
-				c := &chippr-geth.ChipprGethChainConfig{}
+				c := &chipprgeth.ChipprGethChainConfig{}
 				*c = *ClassicChainConfig
 				c.SetEIP145Transition(nil)
 				c.SetEIP1014Transition(nil)
@@ -193,7 +193,7 @@ func TestCheckCompatible(t *testing.T) {
 		{
 			// v1.9.6 -> v1.9.7
 			stored: func() ctypes.ChainConfigurator {
-				c := &chippr-geth.ChipprGethChainConfig{}
+				c := &chipprgeth.ChipprGethChainConfig{}
 				*c = *ClassicChainConfig
 				c.SetEIP152Transition(nil)
 				c.SetEIP1108Transition(nil)
@@ -210,7 +210,7 @@ func TestCheckCompatible(t *testing.T) {
 		{
 			stored: MainnetChainConfig,
 			new: func() ctypes.ChainConfigurator {
-				c := &chippr-geth.ChipprGethChainConfig{}
+				c := &chipprgeth.ChipprGethChainConfig{}
 				err := confp.Convert(MainnetChainConfig, c)
 				if err != nil {
 					panic(err)

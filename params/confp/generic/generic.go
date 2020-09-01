@@ -50,7 +50,7 @@ func (c GenericCC) DAOSupport() bool {
 	if omg, ok := c.ChainConfigurator.(*multigeth.ChainConfig); ok {
 		return omg.DAOForkSupport
 	}
-	if mg, ok := c.ChainConfigurator.(*chippr-geth.ChipprGethChainConfig); ok {
+	if mg, ok := c.ChainConfigurator.(*chipprgeth.ChipprGethChainConfig); ok {
 		return mg.GetEthashEIP779Transition() != nil
 	}
 	if pc, ok := c.ChainConfigurator.(*parity.ParityChainSpec); ok {
@@ -113,7 +113,7 @@ func UnmarshalChainConfigurator(input []byte) (ctypes.ChainConfigurator, error) 
 		negates    []string
 	}{
 		{&parity.ParityChainSpec{}, paritySchemaKeysSuffice, paritySchemaKeysMustNot},
-		{&chippr-geth.ChipprGethChainConfig{}, multigethSchemaSuffice, multigethSchemaMustNot},
+		{&chipprgeth.ChipprGethChainConfig{}, multigethSchemaSuffice, multigethSchemaMustNot},
 		{&multigeth.ChainConfig{}, oldmultigethSchemaSuffice, oldmultigethSchemaMustNot},
 		{&goethereum.ChainConfig{}, goethereumSchemaSuffice, goethereumSchemaMustNot},
 	}

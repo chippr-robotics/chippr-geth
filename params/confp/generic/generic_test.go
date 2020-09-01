@@ -34,7 +34,7 @@ func TestUnmarshalChainConfigurator(t *testing.T) {
 		},
 		{
 			filepath.Join("..", "testdata", "stureby_multigeth.json"),
-			&chippr-geth.ChipprGethChainConfig{},
+			&chipprgeth.ChipprGethChainConfig{},
 		},
 	}
 
@@ -240,14 +240,14 @@ func TestUnmarshalChainConfigurator2(t *testing.T) {
 		{
 			versionid: "v198",
 			raw:       cc_v198_a,
-			wantType:  reflect.TypeOf(&chippr-geth.ChipprGethChainConfig{}),
+			wantType:  reflect.TypeOf(&chipprgeth.ChipprGethChainConfig{}),
 		},
 		{
 			versionid: "v199",
 			// Same same as v198; would like to use a real "latest" runtime marshaled config,
 			// but this will at least enable a test of a::a.
 			raw:      cc_v198_a,
-			wantType: reflect.TypeOf(&chippr-geth.ChipprGethChainConfig{}),
+			wantType: reflect.TypeOf(&chipprgeth.ChipprGethChainConfig{}),
 		},
 		// FIXME
 		//{

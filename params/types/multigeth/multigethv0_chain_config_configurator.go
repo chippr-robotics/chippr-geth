@@ -693,7 +693,7 @@ func (c *ChainConfig) GetEthashECIP1017Transition() *uint64 {
 	// where eg. transition=5M and rounds=5M, so activation
 	// at 5M OR 0 are equivalent.
 
-	// Manual override for Mordor test network, where the chippr-geth chain config
+	// Manual override for Mordor test network, where the chipprgeth chain config
 	// (https://github.com/eth-classic/mordor) specifies genesis activation with
 	// 2M rounds. Multi-geth does not support this configuration, so we have to hack it in.
 	if c.GetChainID() != nil && c.GetChainID().Uint64() == 63 &&

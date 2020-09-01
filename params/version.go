@@ -25,7 +25,7 @@ const (
 	VersionMinor = 11         // Minor version component of the current release
 	VersionPatch = 13         // Patch version component of the current release
 	VersionMeta  = "unstable" // Version metadata to append to the version string
-	VersionName  = "chippr-geth"
+	VersionName  = "chipprgeth"
 )
 
 // Version holds the textual version string.

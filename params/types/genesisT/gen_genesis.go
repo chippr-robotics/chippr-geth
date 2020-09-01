@@ -98,8 +98,8 @@ func (g *Genesis) UnmarshalJSON(input []byte) error {
 	}
 
 	switch conf.(type) {
-	case *chippr-geth.ChipprGethChainConfig:
-		dec.Config = &chippr-geth.ChipprGethChainConfig{}
+	case *chipprgeth.ChipprGethChainConfig:
+		dec.Config = &chipprgeth.ChipprGethChainConfig{}
 	case *multigeth.ChainConfig:
 		dec.Config = &multigeth.ChainConfig{}
 	case *goethereum.ChainConfig:

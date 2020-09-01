@@ -30,7 +30,7 @@ import (
 // chain specification format.
 func NewPyEthereumGenesisSpec(network string, genesis *genesisT.Genesis) (*pyethereum.PyEthereumGenesisSpec, error) {
 	// Only ethash is currently supported between go-ethereum and pyethereum
-	if genesis.Config.(*chippr-geth.ChipprGethChainConfig).Ethash == nil {
+	if genesis.Config.(*chipprgeth.ChipprGethChainConfig).Ethash == nil {
 		return nil, errors.New("unsupported consensus engine")
 	}
 	spec := &pyethereum.PyEthereumGenesisSpec{
