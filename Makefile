@@ -39,11 +39,11 @@ test: all
 sync-parity-chainspecs:
 	./params/parity.json.d/sync-parity-remote.sh
 
-test-chippr-geth: \
- test-chippr-geth-features \
- test-chippr-geth-chainspecs \
- test-chippr-geth-consensus \
- test-chippr-geth-regression-condensed ## Runs all tests specific to chippr-geth.
+test-chipprgeth: \
+ test-chipprgeth-features \
+ test-chipprgeth-chainspecs \
+ test-chipprgeth-consensus \
+ test-chipprgeth-regression-condensed ## Runs all tests specific to chipprgeth.
 
 # Generate the necessary shared object for EVMC unit tests.
 evmc/bindings/go/evmc/example_vm.so:
@@ -74,31 +74,31 @@ test-evmc: evmc/bindings/go/evmc/example_vm.so hera ssvm evmone aleth-interprete
 clean-evmc:
 	rm -rf evmc/bindings/go/evmc/example_vm.so ./build/_workspace/hera ./build/_workspace/SSVM ./build/_workspace/evmone ./build/_workspace/aleth
 
-test-chippr-geth-features: test-chippr-geth-features-parity test-chippr-geth-features-chippr-geth test-chippr-geth-features-multigethv0 ## Runs tests specific to multi-geth using Fork/Feature configs.
+test-chipprgeth-features: test-chipprgeth-features-parity test-chipprgeth-features-chipprgeth test-chipprgeth-features-multigethv0 ## Runs tests specific to multi-geth using Fork/Feature configs.
 
-test-chippr-geth-consensus: test-chippr-geth-features-clique-consensus
+test-chipprgeth-consensus: test-chipprgeth-features-clique-consensus
 
-test-chippr-geth-features-parity:
+test-chipprgeth-features-parity:
 	@echo "Testing fork/feature/datatype implementation; equivalence - OPENETHEREUM."
 	env CHIPPRGETH_TESTS_CHAINCONFIG_FEATURE_EQUIVALENCE_OPENETHEREUM=on go test -count=1 ./tests
 
-test-chippr-geth-features-chippr-geth:
-	@echo "Testing fork/feature/datatype implementation; equivalence - chippr-geth."
-	env CHIPPRGETH_TESTS_CHAINCONFIG_FEATURE_EQUIVALENCE_chippr-geth=on go test -count=1 ./tests
+test-chipprgeth-features-chipprgeth:
+	@echo "Testing fork/feature/datatype implementation; equivalence - chipprgeth."
+	env CHIPPRGETH_TESTS_CHAINCONFIG_FEATURE_EQUIVALENCE_chipprgeth=on go test -count=1 ./tests
 
-test-chippr-geth-features-multigethv0:
+test-chipprgeth-features-multigethv0:
 	@echo "Testing fork/feature/datatype implementation; equivalence - MULTIGETHv0."
 	env CHIPPRGETH_TESTS_CHAINCONFIG_FEATURE_EQUIVALENCE_MULTIGETHV0=on go test -count=1 ./tests
 
-test-chippr-geth-features-clique-consensus:
+test-chipprgeth-features-clique-consensus:
 	@echo "Testing fork/feature/datatype implementation; equivalence - Clique consensus"
 	env CHIPPRGETH_TESTS_CHAINCONFIG_CONSENSUS_EQUIVALENCE_CLIQUE=on go test -count=1 -run TestState ./tests ## Only run state tests here, since Blockchain tests will care about rewards, etc.
 
-test-chippr-geth-chainspecs: ## Run tests specific to multi-geth using chainspec file configs.
+test-chipprgeth-chainspecs: ## Run tests specific to multi-geth using chainspec file configs.
 	@echo "Testing Parity JSON chainspec equivalence."
 	env CHIPPRGETH_TESTS_CHAINCONFIG_OPENETHEREUM_SPECS=on go test -count=1 ./tests
 
-test-chippr-geth-regression-condensed: geth
+test-chipprgeth-regression-condensed: geth
 	@echo "Running condensed regression tests (imports) against simulated canonical blockchains."
 	./tests/regression/simulated/test.sh ./tests/regression/simulated/classic-condense-state/classic.conf.json ./tests/regression/simulated/classic-condense-state/export.rlp.gz
 	./tests/regression/simulated/test.sh ./tests/regression/simulated/foundation-condense-state/foundation.conf.json ./tests/regression/simulated/foundation-condense-state/export.rlp.gz

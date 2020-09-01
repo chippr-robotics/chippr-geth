@@ -60,7 +60,7 @@ var Forks = map[string]ctypes.ChainConfigurator{
 		EIP158Block:    big.NewInt(0),
 		ByzantiumBlock: big.NewInt(0),
 	},
-	"ETC_Atlantis": &chippr-geth.ChipprGethChainConfig{
+	"ETC_Atlantis": &chipprgeth.ChipprGethChainConfig{
 		NetworkID:          1,
 		Ethash:             new(ctypes.EthashConfig),
 		ChainID:            big.NewInt(61),
@@ -112,7 +112,7 @@ var Forks = map[string]ctypes.ChainConfigurator{
 		ConstantinopleBlock: big.NewInt(0),
 		PetersburgBlock:     big.NewInt(0),
 	},
-	"ETC_Agharta": &chippr-geth.ChipprGethChainConfig{
+	"ETC_Agharta": &chipprgeth.ChipprGethChainConfig{
 		NetworkID:          1,
 		Ethash:             new(ctypes.EthashConfig),
 		ChainID:            big.NewInt(61),
@@ -154,7 +154,7 @@ var Forks = map[string]ctypes.ChainConfigurator{
 		PetersburgBlock:     big.NewInt(0),
 		IstanbulBlock:       big.NewInt(0),
 	},
-	"ETC_Phoenix": &chippr-geth.ChipprGethChainConfig{
+	"ETC_Phoenix": &chipprgeth.ChipprGethChainConfig{
 		NetworkID:       1,
 		Ethash:          new(ctypes.EthashConfig),
 		ChainID:         big.NewInt(61),

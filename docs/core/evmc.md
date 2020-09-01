@@ -2,7 +2,7 @@
 
 Geth supports the [EVMC](https://github.com/ethereum/evmc/) VM connector API version 6 as an experimental feature.
 
-From [PR #57](https://github.com/etclabscore/chippr-geth/pull/57) geth enables an externally defined VM, either EVM or EWASM, via
+From [PR #57](https://github.com/etclabscore/chipprgeth/pull/57) geth enables an externally defined VM, either EVM or EWASM, via
 a `--vm.`-prefixed flag for normal instantiation, and `--evmc.` for testing.
 
 Options include EWASM and EVM shared object libraries, as follows:
@@ -17,9 +17,9 @@ tests the implementation against both of these mentioned EWASM libraries against
 
 These tests run exclusively via Github Actions, configured at `.github/workflows/evmc.yml`.
 
-While chippr-geth supports highly granular EIP/ECIP/xIP chain feature configuration (ie fork feature configs),
+While chipprgeth supports highly granular EIP/ECIP/xIP chain feature configuration (ie fork feature configs),
 EVMC does not. EVMC only supports the Fork configurations supported by ethereum/go-ethereum (eg. Byzantium, Constantinople, &c). 
-Thus, the implementation at chippr-geth of EVMC requires a somewhat arbitrary mapping of granular features as keys toggling
+Thus, the implementation at chipprgeth of EVMC requires a somewhat arbitrary mapping of granular features as keys toggling
 entire Ethereum fork configurations.
 
 The following code snippet, taken from `./core/vm/evmc.go`, handles this translation.

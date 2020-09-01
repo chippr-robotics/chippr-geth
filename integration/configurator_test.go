@@ -76,7 +76,7 @@ func TestEquivalent_Features(t *testing.T) {
 
 		// Integration tests: conversion
 
-		mg := &chippr-geth.ChipprGethChainConfig{}
+		mg := &chipprgeth.ChipprGethChainConfig{}
 		err := confp.Convert(oconf, mg)
 		if err != nil {
 			t.Fatal(err)
@@ -216,7 +216,7 @@ func TestParityGeneses(t *testing.T) {
 			t.Fatal(err)
 		}
 		genc := &genesisT.Genesis{
-			Config: &chippr-geth.ChipprGethChainConfig{},
+			Config: &chipprgeth.ChipprGethChainConfig{},
 		}
 		err = confp.Convert(pspec, genc)
 		if err != nil {

@@ -205,7 +205,7 @@ func New(stack *node.Node, config *Config) (*Ethereum, error) {
 	cacheLimit := cacheConfig.TrieCleanLimit + cacheConfig.TrieDirtyLimit + cacheConfig.SnapshotLimit
 	checkpoint := config.Checkpoint
 	if checkpoint == nil {
-		if p, ok := chainConfig.(*chippr-geth.ChipprGethChainConfig); ok {
+		if p, ok := chainConfig.(*chipprgeth.ChipprGethChainConfig); ok {
 			checkpoint = p.TrustedCheckpoint
 		} else if p, ok := chainConfig.(*goethereum.ChainConfig); ok {
 			checkpoint = p.TrustedCheckpoint

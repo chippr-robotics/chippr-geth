@@ -69,7 +69,7 @@ var difficultyChainConfigurations = map[string]ctypes.ChainConfigurator{
 		ConstantinopleBlock: big.NewInt(0),
 	},
 	"difficulty.json": mainnetChainConfig,
-	"ETC_Atlantis": &chippr-geth.ChipprGethChainConfig{
+	"ETC_Atlantis": &chipprgeth.ChipprGethChainConfig{
 		Ethash:        new(ctypes.EthashConfig),
 		EIP100FBlock:  big.NewInt(0),
 		EIP140FBlock:  big.NewInt(0),
@@ -81,7 +81,7 @@ var difficultyChainConfigurations = map[string]ctypes.ChainConfigurator{
 		EIP658FBlock:  big.NewInt(0),
 		DisposalBlock: big.NewInt(0),
 	},
-	"ETC_Agharta": &chippr-geth.ChipprGethChainConfig{
+	"ETC_Agharta": &chipprgeth.ChipprGethChainConfig{
 		Ethash:        new(ctypes.EthashConfig),
 		EIP100FBlock:  big.NewInt(0),
 		EIP140FBlock:  big.NewInt(0),
@@ -106,7 +106,7 @@ var difficultyChainConfigurations = map[string]ctypes.ChainConfigurator{
 		IstanbulBlock:       big.NewInt(0),
 		MuirGlacierBlock:    big.NewInt(0),
 	},
-	"ETC_Phoenix": &chippr-geth.ChipprGethChainConfig{
+	"ETC_Phoenix": &chipprgeth.ChipprGethChainConfig{
 		Ethash:        new(ctypes.EthashConfig),
 		EIP100FBlock:  big.NewInt(0),
 		EIP140FBlock:  big.NewInt(0),

@@ -153,7 +153,7 @@ func TestGenerateBlockAndImport_CG1(t *testing.T) {
 		{
 			name: "classic-ethash",
 			conf: func() ctypes.ChainConfigurator {
-				c := &chippr-geth.ChipprGethChainConfig{
+				c := &chipprgeth.ChipprGethChainConfig{
 					NetworkID: 1,
 					Ethash:    new(ctypes.EthashConfig),
 					ChainID:   big.NewInt(61),

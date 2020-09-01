@@ -271,7 +271,7 @@ func TestSetupGenesisBlock2(t *testing.T) {
 		t.Fatal("mismatch hash")
 	}
 	// Test that our setup config return the proper type configurator.
-	wantType = reflect.TypeOf(&chippr-geth.ChipprGethChainConfig{})
+	wantType = reflect.TypeOf(&chipprgeth.ChipprGethChainConfig{})
 	if reflect.TypeOf(conf2) != wantType {
 		t.Fatalf("mismatch, want: %v, got: %v", wantType, reflect.TypeOf(conf2))
 	}

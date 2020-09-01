@@ -23,8 +23,8 @@ var gitDate = ""
 
 var (
 	chainspecFormatTypes = map[string]ctypes.Configurator{
-		"chippr-geth": &genesisT.Genesis{
-			Config: &chippr-geth.ChipprGethChainConfig{},
+		"chipprgeth": &genesisT.Genesis{
+			Config: &chipprgeth.ChipprGethChainConfig{},
 		},
 		"multigeth": &genesisT.Genesis{
 			Config: &multigeth.ChainConfig{},
@@ -197,15 +197,15 @@ EXAMPLES:
 
 	Convert an external chain configuration between client formats (from STDIN)
 .
-		> cat my-parity-spec.json | {{.Name}} --inputf parity --outputf [geth|chippr-geth]
+		> cat my-parity-spec.json | {{.Name}} --inputf parity --outputf [geth|chipprgeth]
 
 	Convert an external chain configuration between client formats (from file).
 
-		> {{.Name}} --inputf parity --file my-parity-spec.json --outputf [geth|chippr-geth]
+		> {{.Name}} --inputf parity --file my-parity-spec.json --outputf [geth|chipprgeth]
 
-	Print a default Ethereum Classic network chain configuration in chippr-geth format:
+	Print a default Ethereum Classic network chain configuration in chipprgeth format:
 	
-		> {{.Name}} --default classic --outputf chippr-geth
+		> {{.Name}} --default classic --outputf chipprgeth
 
 	Validate a default Kotti network chain configuration for block #3000000:
 	

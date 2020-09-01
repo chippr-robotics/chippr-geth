@@ -1,4 +1,4 @@
-## chippr-geth: An Ethereum Protocol Provider
+## chipprgeth: An Ethereum Protocol Provider
 
 > An [ethereum/go-ethereum](https://github.com/ethereum/go-ethereum) downstream effort to make the Ethereum Protocol accessible and extensible for a diverse ecosystem.
 
@@ -9,16 +9,16 @@ Upstream development from [ethereum/go-ethereum](https://github.com/ethereum/go-
  made upstream whenever possible.
 
 [![OpenRPC](https://img.shields.io/static/v1.svg?label=OpenRPC&message=1.0.10&color=blue)](#openrpc-discovery)
-[![API Reference](https://camo.githubusercontent.com/915b7be44ada53c290eb157634330494ebe3e30a/68747470733a2f2f676f646f632e6f72672f6769746875622e636f6d2f676f6c616e672f6764646f3f7374617475732e737667)](https://godoc.org/github.com/chippr-robotics/chippr-geth)
-[![Go Report Card](https://goreportcard.com/badge/github.com/chippr-robotics/chippr-geth)](https://goreportcard.com/report/github.com/chippr-robotics/chippr-geth)
-[![Travis](https://travis-ci.org/chippr-robotics/chippr-geth.svg?branch=master)](https://travis-ci.org/chippr-robotics/chippr-geth)
-[![Gitter](https://badges.gitter.im/chippr-geth/community.svg)](https://gitter.im/chippr-geth/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![API Reference](https://camo.githubusercontent.com/915b7be44ada53c290eb157634330494ebe3e30a/68747470733a2f2f676f646f632e6f72672f6769746875622e636f6d2f676f6c616e672f6764646f3f7374617475732e737667)](https://godoc.org/github.com/chippr-robotics/chipprgeth)
+[![Go Report Card](https://goreportcard.com/badge/github.com/chippr-robotics/chipprgeth)](https://goreportcard.com/report/github.com/chippr-robotics/chipprgeth)
+[![Travis](https://travis-ci.org/chippr-robotics/chipprgeth.svg?branch=master)](https://travis-ci.org/chippr-robotics/chipprgeth)
+[![Gitter](https://badges.gitter.im/chipprgeth/community.svg)](https://gitter.im/chipprgeth/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## Network/provider comparison
 
 Networks supported by the respective go-ethereum packaged `geth` program.
 
-| Ticker | Consensus         | Network                               | chippr-geth                                                | ethereum/go-ethereum |
+| Ticker | Consensus         | Network                               | chipprgeth                                                | ethereum/go-ethereum |
 | ---    | ---               | ---                                   | ---                                                      | ---                  |
 | ETC    | :zap:             | Ethereum Classic                      | :heavy_check_mark:                                       |                      |
 | ETH    | :zap:             | Ethereum (Foundation)                 | :heavy_check_mark:                                       | :heavy_check_mark:   |
@@ -56,12 +56,12 @@ Ellaism users are asked to switch to
 
 If you just want to download and run `geth` or any of the other tools here, this is the quickest and simplest way.
 
-Binary archives are published at https://github.com/chippr-robotics/chippr-geth/releases. Find the latest one for your OS, download it, (check the SHA sum), unarchive it, and run!
+Binary archives are published at https://github.com/chippr-robotics/chipprgeth/releases. Find the latest one for your OS, download it, (check the SHA sum), unarchive it, and run!
 
 ### With Docker
 
 All runnable examples below are for images limited to `geth`. For images including the full suite of
-tools available from this source, use the Docker Hub tag prefix `alltools.`, like `chipprbots/chippr-geth:alltools.latest`, or the associated Docker file directly `./Dockerfile.alltools`.
+tools available from this source, use the Docker Hub tag prefix `alltools.`, like `chipprbots/chipprgeth:alltools.latest`, or the associated Docker file directly `./Dockerfile.alltools`.
 
 #### `docker run`
 
@@ -70,11 +70,11 @@ Docker:
 
 ```shell
 $ docker run -d \
-    --name chippr-geth \
+    --name chipprgeth \
     -v $LOCAL_DATADIR:/root \
     -p 30303:30303 \
     -p 8545:8545 \
-    chipprbots/chippr-geth \
+    chipprbots/chipprgeth \
     --classic \
     --rpc --rpcport 8545
 ```
@@ -90,14 +90,14 @@ accessible from the outside.
 
 #### `docker pull`
 
-Docker images are automatically [published on Docker Hub](https://hub.docker.com/r/chipprbots/chippr-geth/tags).
+Docker images are automatically [published on Docker Hub](https://hub.docker.com/r/chipprbots/chipprgeth/tags).
 
 ##### Image: `latest`
 
 Image `latest` is built automatically from the `master` branch whenever it's updated.
 
 ```shell
-$ docker pull chipprbots/chippr-geth:latest
+$ docker pull chipprbots/chipprgeth:latest
 ```
 
 ##### Image: `<tag>`
@@ -106,7 +106,7 @@ Repository tags like `v1.2.3` correspond to Docker tags like __`version-1.2.3`__
 
 An example:
 ```shell
-$ docker pull chipprbots/chippr-geth:version-1.11.1
+$ docker pull chipprbots/chipprgeth:version-1.11.1
 ```
 
 #### `docker build`
@@ -114,15 +114,15 @@ $ docker pull chipprbots/chippr-geth:version-1.11.1
 You can build a local docker image directly from the source:
 
 ```shell
-$ git clone https://github.com/chippr-robotics/chippr-geth.git
-$ cd chippr-geth
-$ docker build -t=chippr-geth .
+$ git clone https://github.com/chippr-robotics/chipprgeth.git
+$ cd chipprgeth
+$ docker build -t=chipprgeth .
 ```
 
 Or with all tools:
 
 ```shell
-$ docker build -t chippr-geth-alltools -f Dockerfile.alltools .
+$ docker build -t chipprgeth-alltools -f Dockerfile.alltools .
 ```
 
 ### Build from source
@@ -141,8 +141,8 @@ $ sudo apt-get install -y build-essential
 Once the dependencies have been installed, it's time to clone and build the source:
 
 ```shell
-$ git clone https://github.com/chippr-robotics/chippr-geth.git
-$ cd chippr-geth
+$ git clone https://github.com/chippr-robotics/chipprgeth.git
+$ cd chipprgeth
 $ make all
 $ ./build/bin/geth --help
 ```
@@ -156,9 +156,9 @@ For further documentation resources, please visit [./docs](./docs).
 Thank you for considering to help out with the source code! We welcome contributions
 from anyone on the internet, and are grateful for even the smallest of fixes!
 
-If you'd like to contribute to chippr-geth, please fork, fix, commit and send a pull request
+If you'd like to contribute to chipprgeth, please fork, fix, commit and send a pull request
 for the maintainers to review and merge into the main code base. If you wish to submit
-more complex changes though, please check up with the core devs first on [our gitter channel](https://gitter.im/chippr-robotics/chippr-geth)
+more complex changes though, please check up with the core devs first on [our gitter channel](https://gitter.im/chippr-robotics/chipprgeth)
 to ensure those changes are in line with the general philosophy of the project and/or get
 some early feedback which can make both your efforts much lighter as well as our review
 and merge procedures quick and simple.
@@ -179,10 +179,10 @@ testing procedures.
 
 ## License
 
-The chippr-geth library (i.e. all code outside of the `cmd` directory) is licensed under the
+The chipprgeth library (i.e. all code outside of the `cmd` directory) is licensed under the
 [GNU Lesser General Public License v3.0](https://www.gnu.org/licenses/lgpl-3.0.en.html),
 also included in our repository in the `COPYING.LESSER` file.
 
-The chippr-geth binaries (i.e. all code inside of the `cmd` directory) is licensed under the
+The chipprgeth binaries (i.e. all code inside of the `cmd` directory) is licensed under the
 [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html), also
 included in our repository in the `COPYING` file.

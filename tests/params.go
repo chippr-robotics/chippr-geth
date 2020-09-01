@@ -143,11 +143,11 @@ func writeDifficultyConfigFile(conf ctypes.ChainConfigurator, forkName string) (
 
 func init() {
 
-	if os.Getenv(CG_CHAINCONFIG_FEATURE_EQ_chippr-geth_KEY) != "" {
-		log.Println("converting to chippr-geth Chain Config data type.")
+	if os.Getenv(CG_CHAINCONFIG_FEATURE_EQ_chipprgeth_KEY) != "" {
+		log.Println("converting to chipprgeth Chain Config data type.")
 
 		for i, config := range Forks {
-			mgc := &chippr-geth.ChipprGethChainConfig{}
+			mgc := &chipprgeth.ChipprGethChainConfig{}
 			if err := confp.Convert(config, mgc); ctypes.IsFatalUnsupportedErr(err) {
 				panic(err)
 			}
@@ -155,7 +155,7 @@ func init() {
 		}
 
 		for k, v := range difficultyChainConfigurations {
-			mgc := &chippr-geth.ChipprGethChainConfig{}
+			mgc := &chipprgeth.ChipprGethChainConfig{}
 			if err := confp.Convert(v, mgc); ctypes.IsFatalUnsupportedErr(err) {
 				panic(err)
 			}

@@ -367,11 +367,11 @@ func TestGatherForks(t *testing.T) {
 // TestGenerateSpecificationCases generates markdown formatted specification
 // for network forkid values.
 func TestGenerateSpecificationCases(t *testing.T) {
-	if os.Getenv("chippr-geth_GENERATE_FORKID_TEST_CASES") == "" {
+	if os.Getenv("chipprgeth_GENERATE_FORKID_TEST_CASES") == "" {
 		t.Skip()
 	}
 	type testCaseJSON struct {
-		ChainConfig *chippr-geth.ChipprGethChainConfig `json:"geth_chain_config"`
+		ChainConfig *chipprgeth.ChipprGethChainConfig `json:"geth_chain_config"`
 		GenesisHash common.Hash                   `json:"genesis_hash"`
 		Head        uint64                        `json:"head"`
 		ForkHash    common.Hash                   `json:"fork_hash"`
@@ -402,7 +402,7 @@ func TestGenerateSpecificationCases(t *testing.T) {
 		},
 		{
 			"Morden",
-			&chippr-geth.ChipprGethChainConfig{
+			&chipprgeth.ChipprGethChainConfig{
 				Ethash:            &ctypes.EthashConfig{},
 				EIP2FBlock:        big.NewInt(494000),
 				EIP150Block:       big.NewInt(1783000),
@@ -449,7 +449,7 @@ func TestGenerateSpecificationCases(t *testing.T) {
 				fmt.Printf("| head=%d | FORK_HASH=%x | FORK_NEXT=%d | %x |\n", c, id.Hash, id.Next, r)
 			}
 
-			gethConfig := &chippr-geth.ChipprGethChainConfig{}
+			gethConfig := &chipprgeth.ChipprGethChainConfig{}
 			err := confp.Convert(tt.config, gethConfig)
 			if err != nil {
 				t.Fatal(err)
