@@ -33,7 +33,7 @@ import (
 	"testing"
 
 	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/params/types/coregeth"
+	"github.com/ethereum/go-ethereum/params/types/chippr-geth"
 	"github.com/ethereum/go-ethereum/params/types/ctypes"
 )
 
@@ -196,7 +196,7 @@ func (tm *testMatcher) findConfig(name string) (ctypes.ChainConfigurator, string
 		}
 	}
 	log.Println("using empty config", name)
-	return new(coregeth.CoreGethChainConfig), ""
+	return new(chippr-geth.ChipprGethChainConfig), ""
 }
 
 // checkFailure checks whether a failure is expected.

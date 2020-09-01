@@ -27,7 +27,7 @@ import (
 	"github.com/ethereum/go-ethereum/core/rawdb"
 	"github.com/ethereum/go-ethereum/params"
 	"github.com/ethereum/go-ethereum/params/confp"
-	"github.com/ethereum/go-ethereum/params/types/coregeth"
+	"github.com/ethereum/go-ethereum/params/types/chippr-geth"
 	"github.com/ethereum/go-ethereum/params/types/ctypes"
 	"github.com/ethereum/go-ethereum/params/types/multigeth"
 )
@@ -271,7 +271,7 @@ func TestSetupGenesisBlock2(t *testing.T) {
 		t.Fatal("mismatch hash")
 	}
 	// Test that our setup config return the proper type configurator.
-	wantType = reflect.TypeOf(&coregeth.CoreGethChainConfig{})
+	wantType = reflect.TypeOf(&chippr-geth.ChipprGethChainConfig{})
 	if reflect.TypeOf(conf2) != wantType {
 		t.Fatalf("mismatch, want: %v, got: %v", wantType, reflect.TypeOf(conf2))
 	}

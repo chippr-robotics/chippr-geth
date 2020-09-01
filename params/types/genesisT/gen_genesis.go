@@ -29,7 +29,7 @@ import (
 	"github.com/ethereum/go-ethereum/params/confp/generic"
 	common0 "github.com/ethereum/go-ethereum/params/types/ctypes"
 	"github.com/ethereum/go-ethereum/params/types/goethereum"
-	"github.com/ethereum/go-ethereum/params/types/coregeth"
+	"github.com/ethereum/go-ethereum/params/types/chippr-geth"
 	"github.com/ethereum/go-ethereum/params/types/multigeth"
 )
 
@@ -98,8 +98,8 @@ func (g *Genesis) UnmarshalJSON(input []byte) error {
 	}
 
 	switch conf.(type) {
-	case *coregeth.CoreGethChainConfig:
-		dec.Config = &coregeth.CoreGethChainConfig{}
+	case *chippr-geth.ChipprGethChainConfig:
+		dec.Config = &chippr-geth.ChipprGethChainConfig{}
 	case *multigeth.ChainConfig:
 		dec.Config = &multigeth.ChainConfig{}
 	case *goethereum.ChainConfig:

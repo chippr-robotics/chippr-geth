@@ -31,31 +31,31 @@ build_script:
   - copy /Y evmc\include\evmc\loader.h evmc\bindings\go\evmc\loader.h
   - copy /Y evmc\lib\loader\loader.c evmc\bindings\go\evmc\loader.c
   - go run build\ci.go install
-  - 7z a core-geth-win64-%VERSION%.zip .\build\bin\geth.exe
-  - ps: Get-FileHash core-geth-win64-$env:VERSION.zip -Algorithm SHA256
-  - ps: Get-FileHash core-geth-win64-$env:VERSION.zip -Algorithm SHA256 | Out-File core-geth-win64-$env:VERSION.zip.sha256
-  - 7z a core-geth-alltools-win64-%VERSION%.zip .\build\bin\*
-  - ps: Get-FileHash core-geth-alltools-win64-$env:VERSION.zip -Algorithm SHA256
-  - ps: Get-FileHash core-geth-alltools-win64-$env:VERSION.zip | Out-File core-geth-alltools-win64-$env:VERSION.zip.sha256
+  - 7z a chippr-geth-win64-%VERSION%.zip .\build\bin\geth.exe
+  - ps: Get-FileHash chippr-geth-win64-$env:VERSION.zip -Algorithm SHA256
+  - ps: Get-FileHash chippr-geth-win64-$env:VERSION.zip -Algorithm SHA256 | Out-File chippr-geth-win64-$env:VERSION.zip.sha256
+  - 7z a chippr-geth-alltools-win64-%VERSION%.zip .\build\bin\*
+  - ps: Get-FileHash chippr-geth-alltools-win64-$env:VERSION.zip -Algorithm SHA256
+  - ps: Get-FileHash chippr-geth-alltools-win64-$env:VERSION.zip | Out-File chippr-geth-alltools-win64-$env:VERSION.zip.sha256
 
 for:
   - branches:
       only:
         - /v\d*\.\d*\.\d*.*/
     artifacts:
-      - path: '*core-geth-win64*.zip'
+      - path: '*chippr-geth-win64*.zip'
         name: geth
-      - path: '*core-geth-win64*.zip.sha256'
+      - path: '*chippr-geth-win64*.zip.sha256'
         name: geth-sha256
-      - path: '*core-geth-alltools*.zip'
+      - path: '*chippr-geth-alltools*.zip'
         name: alltools
-      - path: '*core-geth-alltools*.zip.sha256'
+      - path: '*chippr-geth-alltools*.zip.sha256'
         name: alltools-sha256
 
 deploy:
   provider: GitHub
-  repository: etclabscore/core-geth
-  artifact: /core-geth.*-win64-.*\.zip.*/
+  repository: chippr-robotics/chippr-geth
+  artifact: /chippr-geth.*-win64-.*\.zip.*/
   auth_token:
     secure: tLl/Lbjrer4HCRxAUD/KHocjIsyRWuR7QeK5OCMVTv5lCF2IUKCT6h51nNW4hjOZ
   draft: true

@@ -29,7 +29,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/params"
 	"github.com/ethereum/go-ethereum/params/confp"
-	"github.com/ethereum/go-ethereum/params/types/coregeth"
+	"github.com/ethereum/go-ethereum/params/types/chippr-geth"
 	"github.com/ethereum/go-ethereum/params/types/ctypes"
 	"github.com/ethereum/go-ethereum/rlp"
 )
@@ -367,11 +367,11 @@ func TestGatherForks(t *testing.T) {
 // TestGenerateSpecificationCases generates markdown formatted specification
 // for network forkid values.
 func TestGenerateSpecificationCases(t *testing.T) {
-	if os.Getenv("COREGETH_GENERATE_FORKID_TEST_CASES") == "" {
+	if os.Getenv("chippr-geth_GENERATE_FORKID_TEST_CASES") == "" {
 		t.Skip()
 	}
 	type testCaseJSON struct {
-		ChainConfig *coregeth.CoreGethChainConfig `json:"geth_chain_config"`
+		ChainConfig *chippr-geth.ChipprGethChainConfig `json:"geth_chain_config"`
 		GenesisHash common.Hash                   `json:"genesis_hash"`
 		Head        uint64                        `json:"head"`
 		ForkHash    common.Hash                   `json:"fork_hash"`
@@ -402,7 +402,7 @@ func TestGenerateSpecificationCases(t *testing.T) {
 		},
 		{
 			"Morden",
-			&coregeth.CoreGethChainConfig{
+			&chippr-geth.ChipprGethChainConfig{
 				Ethash:            &ctypes.EthashConfig{},
 				EIP2FBlock:        big.NewInt(494000),
 				EIP150Block:       big.NewInt(1783000),
@@ -449,7 +449,7 @@ func TestGenerateSpecificationCases(t *testing.T) {
 				fmt.Printf("| head=%d | FORK_HASH=%x | FORK_NEXT=%d | %x |\n", c, id.Hash, id.Next, r)
 			}
 
-			gethConfig := &coregeth.CoreGethChainConfig{}
+			gethConfig := &chippr-geth.ChipprGethChainConfig{}
 			err := confp.Convert(tt.config, gethConfig)
 			if err != nil {
 				t.Fatal(err)

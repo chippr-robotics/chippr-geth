@@ -43,7 +43,7 @@ import (
 	"github.com/ethereum/go-ethereum/p2p"
 	"github.com/ethereum/go-ethereum/p2p/enode"
 	"github.com/ethereum/go-ethereum/params/confp"
-	"github.com/ethereum/go-ethereum/params/types/coregeth"
+	"github.com/ethereum/go-ethereum/params/types/chippr-geth"
 	"github.com/ethereum/go-ethereum/params/types/goethereum"
 	"github.com/ethereum/go-ethereum/params/vars"
 	"github.com/ethereum/go-ethereum/rpc"
@@ -133,7 +133,7 @@ func New(stack *node.Node, config *eth.Config) (*LightEthereum, error) {
 
 	checkpoint := config.Checkpoint
 	if checkpoint == nil {
-		if p, ok := chainConfig.(*coregeth.CoreGethChainConfig); ok {
+		if p, ok := chainConfig.(*chippr-geth.ChipprGethChainConfig); ok {
 			checkpoint = p.TrustedCheckpoint
 		} else if p, ok := chainConfig.(*goethereum.ChainConfig); ok {
 			checkpoint = p.TrustedCheckpoint

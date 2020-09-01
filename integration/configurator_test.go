@@ -28,7 +28,7 @@ import (
 	"github.com/ethereum/go-ethereum/core"
 	"github.com/ethereum/go-ethereum/params"
 	"github.com/ethereum/go-ethereum/params/confp"
-	"github.com/ethereum/go-ethereum/params/types/coregeth"
+	"github.com/ethereum/go-ethereum/params/types/chippr-geth"
 	"github.com/ethereum/go-ethereum/params/types/ctypes"
 	"github.com/ethereum/go-ethereum/params/types/genesisT"
 	"github.com/ethereum/go-ethereum/params/types/parity"
@@ -76,7 +76,7 @@ func TestEquivalent_Features(t *testing.T) {
 
 		// Integration tests: conversion
 
-		mg := &coregeth.CoreGethChainConfig{}
+		mg := &chippr-geth.ChipprGethChainConfig{}
 		err := confp.Convert(oconf, mg)
 		if err != nil {
 			t.Fatal(err)
@@ -216,7 +216,7 @@ func TestParityGeneses(t *testing.T) {
 			t.Fatal(err)
 		}
 		genc := &genesisT.Genesis{
-			Config: &coregeth.CoreGethChainConfig{},
+			Config: &chippr-geth.ChipprGethChainConfig{},
 		}
 		err = confp.Convert(pspec, genc)
 		if err != nil {

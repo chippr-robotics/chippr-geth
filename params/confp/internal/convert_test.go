@@ -28,7 +28,7 @@ import (
 	"github.com/ethereum/go-ethereum/params/confp"
 	"github.com/ethereum/go-ethereum/params/confp/tconvert"
 	"github.com/ethereum/go-ethereum/params/types/aleth"
-	"github.com/ethereum/go-ethereum/params/types/coregeth"
+	"github.com/ethereum/go-ethereum/params/types/chippr-geth"
 	"github.com/ethereum/go-ethereum/params/types/ctypes"
 	"github.com/ethereum/go-ethereum/params/types/genesisT"
 	"github.com/ethereum/go-ethereum/params/types/goethereum"
@@ -60,7 +60,7 @@ func Test_UnmarshalJSON(t *testing.T) {
 		case "parity":
 			p := &parity.ParityChainSpec{}
 			mustOpenF(t, f, p)
-			_, err := tconvert.ParityConfigToCoreGethGenesis(p)
+			_, err := tconvert.ParityConfigTochippr-gethGenesis(p)
 			if err != nil {
 				t.Error(err)
 			}
@@ -94,10 +94,10 @@ func TestIdentical(t *testing.T) {
 		"NetworkID",
 	}
 	configs := []ctypes.ChainConfigurator{
-		&coregeth.CoreGethChainConfig{},
+		&chippr-geth.ChipprGethChainConfig{},
 		&goethereum.ChainConfig{},
 		&parity.ParityChainSpec{},
-		&coregeth.CoreGethChainConfig{}, // Complete combination test set.
+		&chippr-geth.ChipprGethChainConfig{}, // Complete combination test set.
 	}
 	for i := range configs {
 		if i == 0 {
@@ -130,7 +130,7 @@ func TestConfiguratorImplementationsSatisfied(t *testing.T) {
 
 	for _, ty := range []interface{}{
 		&goethereum.ChainConfig{},
-		&coregeth.CoreGethChainConfig{},
+		&chippr-geth.ChipprGethChainConfig{},
 	} {
 		_ = ty.(ctypes.ChainConfigurator)
 	}

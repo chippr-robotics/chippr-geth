@@ -35,7 +35,7 @@ import (
 	"github.com/ethereum/go-ethereum/eth/downloader"
 	"github.com/ethereum/go-ethereum/event"
 	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/params/types/coregeth"
+	"github.com/ethereum/go-ethereum/params/types/chippr-geth"
 	"github.com/ethereum/go-ethereum/params/types/ctypes"
 	"github.com/ethereum/go-ethereum/params/types/genesisT"
 	"github.com/ethereum/go-ethereum/params/vars"
@@ -476,7 +476,7 @@ func testCheckpointChallenge(t *testing.T, syncmode downloader.SyncMode, checkpo
 	// Initialize a chain and generate a fake CHT if checkpointing is enabled
 	var (
 		db     = rawdb.NewMemoryDatabase()
-		config = new(coregeth.CoreGethChainConfig)
+		config = new(chippr-geth.ChipprGethChainConfig)
 	)
 	core.MustCommitGenesis(db, &genesisT.Genesis{Config: config}) // Commit genesis block
 	// If checkpointing is enabled, create and inject a fake CHT and the corresponding
@@ -577,7 +577,7 @@ func testBroadcastBlock(t *testing.T, totalPeers, broadcastExpected int) {
 		evmux   = new(event.TypeMux)
 		pow     = ethash.NewFaker()
 		db      = rawdb.NewMemoryDatabase()
-		config  = &coregeth.CoreGethChainConfig{}
+		config  = &chippr-geth.ChipprGethChainConfig{}
 		gspec   = &genesisT.Genesis{Config: config}
 		genesis = core.MustCommitGenesis(db, gspec)
 	)
@@ -641,7 +641,7 @@ func TestBroadcastMalformedBlock(t *testing.T) {
 	var (
 		engine  = ethash.NewFaker()
 		db      = rawdb.NewMemoryDatabase()
-		config  = &coregeth.CoreGethChainConfig{}
+		config  = &chippr-geth.ChipprGethChainConfig{}
 		gspec   = &genesisT.Genesis{Config: config}
 		genesis = core.MustCommitGenesis(db, gspec)
 	)

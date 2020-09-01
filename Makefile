@@ -39,11 +39,11 @@ test: all
 sync-parity-chainspecs:
 	./params/parity.json.d/sync-parity-remote.sh
 
-test-coregeth: \
- test-coregeth-features \
- test-coregeth-chainspecs \
- test-coregeth-consensus \
- test-coregeth-regression-condensed ## Runs all tests specific to core-geth.
+test-chippr-geth: \
+ test-chippr-geth-features \
+ test-chippr-geth-chainspecs \
+ test-chippr-geth-consensus \
+ test-chippr-geth-regression-condensed ## Runs all tests specific to chippr-geth.
 
 # Generate the necessary shared object for EVMC unit tests.
 evmc/bindings/go/evmc/example_vm.so:
@@ -74,31 +74,31 @@ test-evmc: evmc/bindings/go/evmc/example_vm.so hera ssvm evmone aleth-interprete
 clean-evmc:
 	rm -rf evmc/bindings/go/evmc/example_vm.so ./build/_workspace/hera ./build/_workspace/SSVM ./build/_workspace/evmone ./build/_workspace/aleth
 
-test-coregeth-features: test-coregeth-features-parity test-coregeth-features-coregeth test-coregeth-features-multigethv0 ## Runs tests specific to multi-geth using Fork/Feature configs.
+test-chippr-geth-features: test-chippr-geth-features-parity test-chippr-geth-features-chippr-geth test-chippr-geth-features-multigethv0 ## Runs tests specific to multi-geth using Fork/Feature configs.
 
-test-coregeth-consensus: test-coregeth-features-clique-consensus
+test-chippr-geth-consensus: test-chippr-geth-features-clique-consensus
 
-test-coregeth-features-parity:
+test-chippr-geth-features-parity:
 	@echo "Testing fork/feature/datatype implementation; equivalence - OPENETHEREUM."
-	env COREGETH_TESTS_CHAINCONFIG_FEATURE_EQUIVALENCE_OPENETHEREUM=on go test -count=1 ./tests
+	env CHIPPRGETH_TESTS_CHAINCONFIG_FEATURE_EQUIVALENCE_OPENETHEREUM=on go test -count=1 ./tests
 
-test-coregeth-features-coregeth:
-	@echo "Testing fork/feature/datatype implementation; equivalence - COREGETH."
-	env COREGETH_TESTS_CHAINCONFIG_FEATURE_EQUIVALENCE_COREGETH=on go test -count=1 ./tests
+test-chippr-geth-features-chippr-geth:
+	@echo "Testing fork/feature/datatype implementation; equivalence - chippr-geth."
+	env CHIPPRGETH_TESTS_CHAINCONFIG_FEATURE_EQUIVALENCE_chippr-geth=on go test -count=1 ./tests
 
-test-coregeth-features-multigethv0:
+test-chippr-geth-features-multigethv0:
 	@echo "Testing fork/feature/datatype implementation; equivalence - MULTIGETHv0."
-	env COREGETH_TESTS_CHAINCONFIG_FEATURE_EQUIVALENCE_MULTIGETHV0=on go test -count=1 ./tests
+	env CHIPPRGETH_TESTS_CHAINCONFIG_FEATURE_EQUIVALENCE_MULTIGETHV0=on go test -count=1 ./tests
 
-test-coregeth-features-clique-consensus:
+test-chippr-geth-features-clique-consensus:
 	@echo "Testing fork/feature/datatype implementation; equivalence - Clique consensus"
-	env COREGETH_TESTS_CHAINCONFIG_CONSENSUS_EQUIVALENCE_CLIQUE=on go test -count=1 -run TestState ./tests ## Only run state tests here, since Blockchain tests will care about rewards, etc.
+	env CHIPPRGETH_TESTS_CHAINCONFIG_CONSENSUS_EQUIVALENCE_CLIQUE=on go test -count=1 -run TestState ./tests ## Only run state tests here, since Blockchain tests will care about rewards, etc.
 
-test-coregeth-chainspecs: ## Run tests specific to multi-geth using chainspec file configs.
+test-chippr-geth-chainspecs: ## Run tests specific to multi-geth using chainspec file configs.
 	@echo "Testing Parity JSON chainspec equivalence."
-	env COREGETH_TESTS_CHAINCONFIG_OPENETHEREUM_SPECS=on go test -count=1 ./tests
+	env CHIPPRGETH_TESTS_CHAINCONFIG_OPENETHEREUM_SPECS=on go test -count=1 ./tests
 
-test-coregeth-regression-condensed: geth
+test-chippr-geth-regression-condensed: geth
 	@echo "Running condensed regression tests (imports) against simulated canonical blockchains."
 	./tests/regression/simulated/test.sh ./tests/regression/simulated/classic-condense-state/classic.conf.json ./tests/regression/simulated/classic-condense-state/export.rlp.gz
 	./tests/regression/simulated/test.sh ./tests/regression/simulated/foundation-condense-state/foundation.conf.json ./tests/regression/simulated/foundation-condense-state/export.rlp.gz
@@ -108,14 +108,14 @@ tests-generate: tests-generate-state tests-generate-difficulty ## Generate all t
 
 tests-generate-state: ## Generate state tests.
 	@echo "Generating state tests."
-	env COREGETH_TESTS_CHAINCONFIG_OPENETHEREUM_SPECS=on \
-	env COREGETH_TESTS_GENERATE_STATE_TESTS=on \
+	env CHIPPRGETH_TESTS_CHAINCONFIG_OPENETHEREUM_SPECS=on \
+	env CHIPPRGETH_TESTS_GENERATE_STATE_TESTS=on \
 	go run build/ci.go test -v ./tests -run TestGenState
 
 tests-generate-difficulty: ## Generate difficulty tests.
 	@echo "Generating difficulty tests."
-	env COREGETH_TESTS_CHAINCONFIG_OPENETHEREUM_SPECS=on \
-	env COREGETH_TESTS_GENERATE_DIFFICULTY_TESTS=on \
+	env CHIPPRGETH_TESTS_CHAINCONFIG_OPENETHEREUM_SPECS=on \
+	env CHIPPRGETH_TESTS_GENERATE_DIFFICULTY_TESTS=on \
 	go run build/ci.go test -v ./tests -run TestDifficultyGen
 
 lint: ## Run linters.

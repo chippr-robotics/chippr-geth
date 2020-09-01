@@ -26,7 +26,7 @@ import (
 	"github.com/ethereum/go-ethereum/consensus/ethash"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/params/types/coregeth"
+	"github.com/ethereum/go-ethereum/params/types/chippr-geth"
 	"github.com/ethereum/go-ethereum/params/types/ctypes"
 	"github.com/ethereum/go-ethereum/params/types/goethereum"
 )
@@ -69,7 +69,7 @@ var difficultyChainConfigurations = map[string]ctypes.ChainConfigurator{
 		ConstantinopleBlock: big.NewInt(0),
 	},
 	"difficulty.json": mainnetChainConfig,
-	"ETC_Atlantis": &coregeth.CoreGethChainConfig{
+	"ETC_Atlantis": &chippr-geth.ChipprGethChainConfig{
 		Ethash:        new(ctypes.EthashConfig),
 		EIP100FBlock:  big.NewInt(0),
 		EIP140FBlock:  big.NewInt(0),
@@ -81,7 +81,7 @@ var difficultyChainConfigurations = map[string]ctypes.ChainConfigurator{
 		EIP658FBlock:  big.NewInt(0),
 		DisposalBlock: big.NewInt(0),
 	},
-	"ETC_Agharta": &coregeth.CoreGethChainConfig{
+	"ETC_Agharta": &chippr-geth.ChipprGethChainConfig{
 		Ethash:        new(ctypes.EthashConfig),
 		EIP100FBlock:  big.NewInt(0),
 		EIP140FBlock:  big.NewInt(0),
@@ -106,7 +106,7 @@ var difficultyChainConfigurations = map[string]ctypes.ChainConfigurator{
 		IstanbulBlock:       big.NewInt(0),
 		MuirGlacierBlock:    big.NewInt(0),
 	},
-	"ETC_Phoenix": &coregeth.CoreGethChainConfig{
+	"ETC_Phoenix": &chippr-geth.ChipprGethChainConfig{
 		Ethash:        new(ctypes.EthashConfig),
 		EIP100FBlock:  big.NewInt(0),
 		EIP140FBlock:  big.NewInt(0),

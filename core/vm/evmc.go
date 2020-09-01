@@ -124,7 +124,7 @@ func (host *hostContext) SetStorage(addr common.Address, key common.Hash, value 
 
 	host.env.StateDB.SetState(addr, key, value)
 	
-	// Here's a great example of one of the limits of our (core-geth) current chainconfig interface model.
+	// Here's a great example of one of the limits of our (chippr-geth) current chainconfig interface model.
 	// Should we handle the logic here about historic-featuro logic (which really is nice, because when reading the strange-incantation implemations, it's nice to see why it is),
 	// or should we handle the question where we handle the rest of the questions like this, since this logic is
 	// REALLY logic that belongs to the abstract idea of a chainconfiguration (aka chainconfig), which makes sense

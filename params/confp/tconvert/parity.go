@@ -20,7 +20,7 @@ import (
 	"strings"
 
 	"github.com/ethereum/go-ethereum/params/confp"
-	"github.com/ethereum/go-ethereum/params/types/coregeth"
+	"github.com/ethereum/go-ethereum/params/types/chippr-geth"
 	"github.com/ethereum/go-ethereum/params/types/genesisT"
 	"github.com/ethereum/go-ethereum/params/types/parity"
 )
@@ -43,10 +43,10 @@ func NewParityChainSpec(network string, genesis *genesisT.Genesis, bootnodes []s
 }
 
 // ToMultiGethGenesis converts a Parity chainspec to the corresponding MultiGeth datastructure.
-// Note that the return value 'core.Genesis' includes the respective 'params.CoreGethChainConfig' values.
-func ParityConfigToCoreGethGenesis(c *parity.ParityChainSpec) (*genesisT.Genesis, error) {
+// Note that the return value 'core.Genesis' includes the respective 'params.ChipprGethChainConfig' values.
+func ParityConfigTochippr-gethGenesis(c *parity.ParityChainSpec) (*genesisT.Genesis, error) {
 	mg := &genesisT.Genesis{
-		Config: &coregeth.CoreGethChainConfig{},
+		Config: &chippr-geth.ChipprGethChainConfig{},
 	}
 
 	if err := confp.Convert(c, mg); err != nil {

@@ -14,7 +14,7 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/core/vm"
 	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/params/types/coregeth"
+	"github.com/ethereum/go-ethereum/params/types/chippr-geth"
 	"github.com/ethereum/go-ethereum/params/types/ctypes"
 	"github.com/ethereum/go-ethereum/params/types/goethereum"
 )
@@ -153,7 +153,7 @@ func TestGenerateBlockAndImport_CG1(t *testing.T) {
 		{
 			name: "classic-ethash",
 			conf: func() ctypes.ChainConfigurator {
-				c := &coregeth.CoreGethChainConfig{
+				c := &chippr-geth.ChipprGethChainConfig{
 					NetworkID: 1,
 					Ethash:    new(ctypes.EthashConfig),
 					ChainID:   big.NewInt(61),

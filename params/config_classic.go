@@ -19,13 +19,13 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/params/types/coregeth"
+	"github.com/ethereum/go-ethereum/params/types/chippr-geth"
 	"github.com/ethereum/go-ethereum/params/types/ctypes"
 )
 
 var (
 	// ClassicChainConfig is the chain parameters to run a node on the Classic main network.
-	ClassicChainConfig = &coregeth.CoreGethChainConfig{
+	ClassicChainConfig = &chippr-geth.ChipprGethChainConfig{
 		NetworkID: 1,
 		Ethash:    new(ctypes.EthashConfig),
 		ChainID:   big.NewInt(61),
