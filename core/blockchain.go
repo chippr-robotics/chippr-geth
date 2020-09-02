@@ -1662,7 +1662,7 @@ func (bc *BlockChain) insertChain(chain types.Blocks, verifySeals bool) (int, er
 	
 	//handle for pirlguard checks when time comes
 	if bc.chainConfig.IsEnabled(bc.chainConfig.GetECIP1092Transition, block.Number()) {
-	 	errChain = bc.checkChainForAttack(chain)
+	 	errChain = bc.checkChainForAttack(chain, bc.chainConfig.PenatlyCheckLength)
     } 
 
 	// Peek the error for the first block to decide the directing import logic

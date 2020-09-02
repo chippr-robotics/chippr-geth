@@ -974,6 +974,20 @@ func (spec *ParityChainSpec) SetECIP1092Transition(n *uint64) error {
 	spec.Engine.Ethash.Params.ECIP1092Transition = new(ParityU64).SetUint64(n)
 	return nil
 }
+
+func (spec *ParityChainSpec) GetPenatlyCheckLength() *uint64 {
+	if spec.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
+		return nil
+	}
+	return spec.Engine.Ethash.Params.PenatlyCheckLength.Uint64P()
+}
+
+func (spec *ParityChainSpec) SetPenatlyCheckLength(n *uint64) error {
+	spec.Engine.Ethash.Params.PenatlyCheckLength = new(ParityU64).SetUint64(n)
+	return nil
+}
+
+
 func (spec *ParityChainSpec) GetEthashDifficultyBombDelaySchedule() ctypes.Uint64BigMapEncodesHex {
 	if spec.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
 		return nil

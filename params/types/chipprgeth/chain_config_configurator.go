@@ -748,7 +748,7 @@ func (c *ChipprGethChainConfig) SetEthashECIP1041Transition(n *uint64) error {
 	return nil
 }
 
-func (c *CoreGethChainConfig) GetECIP1092Transition() *uint64 {
+func (c *ChipprGethChainConfig) GetECIP1092Transition() *uint64 {
 	if c.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
 		return nil
 	}
@@ -756,11 +756,27 @@ func (c *CoreGethChainConfig) GetECIP1092Transition() *uint64 {
 	return bigNewU64(c.ECIP1092Transition)
 }
 
-func (c *CoreGethChainConfig) SetECIP1092Transition(n *uint64) error {
+func (c *ChipprGethChainConfig) SetECIP1092Transition(n *uint64) error {
 	if c.Ethash == nil {
 		return ctypes.ErrUnsupportedConfigFatal
 	}
 	c.ECIP1092Transition = setBig(c.ECIP1092Transition, n)
+	return nil
+}
+
+func (c *ChipprGethChainConfig) GetPenatlyCheckLength() *uint64 {
+	if c.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
+		return nil
+	}
+
+	return bigNewU64(c.PenatlyCheckLength)
+}
+
+func (c *ChipprGethChainConfig) SetPenatlyCheckLength(n *uint64) error {
+	if c.Ethash == nil {
+		return ctypes.ErrUnsupportedConfigFatal
+	}
+	c.PenatlyCheckLength = setBig(c.PenatlyCheckLength, n)
 	return nil
 }
 

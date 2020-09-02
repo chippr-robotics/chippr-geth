@@ -69,6 +69,7 @@ type ParityChainSpec struct {
 				ECIP1010ContinueTransition *ParityU64 `json:"ecip1010ContinueTransition,omitempty"`
 				ECIP1017EraRounds          *ParityU64 `json:"ecip1017EraRounds,omitempty"`
 				ECIP1092Transition         *ParityU64 `json:"ECIP1092Transition,omitempty"` //may not be needed but here it is
+				PenatlyCheckLength         *ParityU64 `json:"PenatlyCheckLength,omitempty"` //may not be needed but here it is
 			} `json:"params"`
 		} `json:"Ethash,omitempty"`
 		Clique struct {

@@ -676,6 +676,21 @@ func (c *ChainConfig) SetECIP1092Transition(i *uint64) error {
 	return ctypes.ErrUnsupportedConfigFatal
 }
 
+
+func (c *ChainConfig) GetPenatlyCheckLength() *uint64 {
+	if c.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
+		return nil
+	}
+	return nil
+}
+
+func (c *ChainConfig) SetPenatlyCheckLength(i *uint64) error {
+	if i == nil {
+		return nil
+	}
+	return ctypes.ErrUnsupportedConfigFatal
+}
+
 func (c *ChainConfig) GetEthashDifficultyBombDelaySchedule() ctypes.Uint64BigMapEncodesHex {
 	if c.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
 		return nil

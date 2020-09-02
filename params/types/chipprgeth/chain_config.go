@@ -172,7 +172,9 @@ type ChipprGethChainConfig struct {
 	ECIP1017FBlock     *big.Int `json:"ecip1017FBlock,omitempty"`
 	ECIP1017EraRounds  *big.Int `json:"ecip1017EraRounds,omitempty"` // ECIP1017 era rounds
 	ECIP1080FBlock     *big.Int `json:"ecip1080FBlock,omitempty"`
-    ECIP1092Transition *big.Int `json:"ecip1043Block,omitempty"`  //ecip1092 pirlgurad activation
+	ECIP1092Transition *big.Int `json:"ecip1043Block,omitempty"`       //ecip1092 pirlgurad activation
+    PenatlyCheckLength *big.Int `json:"PenatlyCheckLength,omitempty"`  //ecip1092 pirlgurad penatly length 
+
 	DisposalBlock    *big.Int `json:"disposalBlock,omitempty"`    // Bomb disposal HF block
 	SocialBlock      *big.Int `json:"socialBlock,omitempty"`      // Ethereum Social Reward block
 	EthersocialBlock *big.Int `json:"ethersocialBlock,omitempty"` // Ethersocial Reward block
