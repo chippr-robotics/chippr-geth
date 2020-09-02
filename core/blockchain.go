@@ -1660,7 +1660,7 @@ func (bc *BlockChain) insertChain(chain types.Blocks, verifySeals bool) (int, er
 	
 	errChain := nil
 	
-	//handle for pirlguard checks when time comes
+	//handle for pirlguard checks when time comes, then pass the penalty check length
 	if bc.chainConfig.IsEnabled(bc.chainConfig.GetECIP1092Transition, block.Number()) {
 	 	errChain = bc.checkChainForAttack(chain, bc.chainConfig.PenatlyCheckLength)
     } 
