@@ -1,4 +1,6 @@
-## chipprgeth: An Ethereum Protocol Provider
+#This is currently an experimental verison of geth for ethereum classic. 
+
+## Chipprgeth: An Ethereum Protocol Provider
 
 > An [ethereum/go-ethereum](https://github.com/ethereum/go-ethereum) downstream effort to make the Ethereum Protocol accessible and extensible for a diverse ecosystem.
 
