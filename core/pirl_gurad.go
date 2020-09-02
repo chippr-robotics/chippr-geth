@@ -5,7 +5,7 @@ import (
 	"sort"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/ethereum/go-ethereum/params/vars"
 )
 
 var syncStatus bool
@@ -46,7 +46,7 @@ func (bc *BlockChain) checkChainForAttack(blocks types.Blocks) error {
 	}
 
         //checks to see if penatly is activated
-	if syncStatus && len(blocks) > int(penatlyCheckLength) {
+	if syncStatus && len(blocks) > int(vars.PenatlyCheckLength) {
 		for _, b := range blocks {
 			timeMap[b.NumberU64()] = calculatePenaltyTimeForBlock(tipOfTheMainChain, b.NumberU64())
 		}
