@@ -9,7 +9,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/params"
 	"github.com/ethereum/go-ethereum/params/confp"
-	"github.com/ethereum/go-ethereum/params/types/coregeth"
+	"github.com/ethereum/go-ethereum/params/types/chipprgeth"
 	"github.com/ethereum/go-ethereum/params/types/ctypes"
 	"github.com/ethereum/go-ethereum/params/types/genesisT"
 	"github.com/ethereum/go-ethereum/params/types/goethereum"
@@ -23,8 +23,8 @@ var gitDate = ""
 
 var (
 	chainspecFormatTypes = map[string]ctypes.Configurator{
-		"coregeth": &genesisT.Genesis{
-			Config: &coregeth.CoreGethChainConfig{},
+		"chipprgeth": &genesisT.Genesis{
+			Config: &chipprgeth.ChipprGethChainConfig{},
 		},
 		"multigeth": &genesisT.Genesis{
 			Config: &multigeth.ChainConfig{},
@@ -197,15 +197,15 @@ EXAMPLES:
 
 	Convert an external chain configuration between client formats (from STDIN)
 .
-		> cat my-parity-spec.json | {{.Name}} --inputf parity --outputf [geth|coregeth]
+		> cat my-parity-spec.json | {{.Name}} --inputf parity --outputf [geth|chipprgeth]
 
 	Convert an external chain configuration between client formats (from file).
 
-		> {{.Name}} --inputf parity --file my-parity-spec.json --outputf [geth|coregeth]
+		> {{.Name}} --inputf parity --file my-parity-spec.json --outputf [geth|chipprgeth]
 
-	Print a default Ethereum Classic network chain configuration in coregeth format:
+	Print a default Ethereum Classic network chain configuration in chipprgeth format:
 	
-		> {{.Name}} --default classic --outputf coregeth
+		> {{.Name}} --default classic --outputf chipprgeth
 
 	Validate a default Kotti network chain configuration for block #3000000:
 	

@@ -8,7 +8,7 @@ is generated, and can be generated with the `go:generate` command found in
 `binding/go/evmc/evmc_test.go`. If it is available, the tests will run as originally.
 
 The rationale for this fork and the skipped tests is:
-- As drafted in [this PR comment](https://github.com/etclabscore/core-geth/pull/57#issuecomment-656170790),
+- As drafted in [this PR comment](https://github.com/etclabscore/chipprgeth/pull/57#issuecomment-656170790),
   installing the `evmc` package a submodule added undesirable complexity for build and test steps, namely
   requiring the submodule for build (extra `git` steps) and requiring the submodule and a generated artifact
   for testing -- yet another required extra step. In preference of conventional and "works-out-of-the-box"
@@ -17,10 +17,10 @@ The rationale for this fork and the skipped tests is:
   + For precedent in this pattern (and as noted in the comment linked above), the local `log` package
     is a vendored source mostly-copy of `github.com/inconshreveable/log15`. 
 - Tests may be skipped since these are tests incumbent to the vendored package. Their affirmation is (or, was)
-  not the responsibility of core-geth originally, and
+  not the responsibility of chipprgeth originally, and
 - Since this vendor version is expected to be eternally pegged (immutable), we can expect the outcome
   of the presumed (and affirmed in development) passing tests would be static and unresponsive to changes
-  in the core-geth project.
+  in the chipprgeth project.
 - Further, since the tests are only run if the generated artifact is _not_ available, we can
   and do expect to generate the artifact and actually run the tests in CI, since the overhead is just
   mostly configuration and dependency install code and that's already written and available.

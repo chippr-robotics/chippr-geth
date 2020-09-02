@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with the multi-geth library. If not, see <http://www.gnu.org/licenses/>.
 
-package coregeth
+package chipprgeth
 
 import (
 	"fmt"
@@ -26,12 +26,12 @@ import (
 	"github.com/ethereum/go-ethereum/params/types/ctypes"
 )
 
-// CoreGethChainConfig is the core config which determines the blockchain settings.
+// ChipprGethChainConfig is the core config which determines the blockchain settings.
 //
-// CoreGethChainConfig is stored in the database on a per block basis. This means
+// ChipprGethChainConfig is stored in the database on a per block basis. This means
 // that any network, identified by its genesis block, can have its own
 // set of configuration options.
-type CoreGethChainConfig struct {
+type ChipprGethChainConfig struct {
 	// Some of the following fields are left commented because it's useful to see pairings,
 	// both for reference and edification.
 	// They show a difference between the upstream configuration data type (goethereum.ChainConfig) and this one.
@@ -191,7 +191,7 @@ type CoreGethChainConfig struct {
 }
 
 // String implements the fmt.Stringer interface.
-func (c *CoreGethChainConfig) String() string {
+func (c *ChipprGethChainConfig) String() string {
 	var engine interface{}
 	switch {
 	case c.Ethash != nil:

@@ -1,4 +1,4 @@
-CoreGeth
+chipprgeth
 Version: 1.11.8-unstable
 Git Commit: 8d06f85078c207263d0c4119f54ad81cb6224913
 Git Commit Date: 20200630

@@ -114,8 +114,8 @@ func NewDatabaseWithFreezerRemote(db ethdb.KeyValueStore, freezerURL string) (et
 		log.Error("NewDatabaseWithFreezerRemote error", "error", err)
 		return nil, err
 	}
-	// Core-Geth: The validation below is the original and contemporary upstream
-	// ethereum/go-ethereum implementation of validations in NewDatabaseWithFreezer. Core-Geth's
+	// chipprgeth: The validation below is the original and contemporary upstream
+	// ethereum/go-ethereum implementation of validations in NewDatabaseWithFreezer. chipprgeth's
 	// implementation of the "standard" (built-in FS) freezer initialization has been
 	// upgraded to attempt recovery in case an ancient/kv gap is detected, as you can see below.
 	// This recovery-if-invalid logic is not echoed below in the case of a remote freezer

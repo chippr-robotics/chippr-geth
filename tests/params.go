@@ -28,7 +28,7 @@ import (
 	"github.com/ethereum/go-ethereum/params"
 	"github.com/ethereum/go-ethereum/params/confp"
 	"github.com/ethereum/go-ethereum/params/confp/tconvert"
-	"github.com/ethereum/go-ethereum/params/types/coregeth"
+	"github.com/ethereum/go-ethereum/params/types/chipprgeth"
 	"github.com/ethereum/go-ethereum/params/types/ctypes"
 	"github.com/ethereum/go-ethereum/params/types/multigeth"
 	"github.com/ethereum/go-ethereum/params/types/parity"
@@ -143,11 +143,11 @@ func writeDifficultyConfigFile(conf ctypes.ChainConfigurator, forkName string) (
 
 func init() {
 
-	if os.Getenv(CG_CHAINCONFIG_FEATURE_EQ_COREGETH_KEY) != "" {
-		log.Println("converting to CoreGeth Chain Config data type.")
+	if os.Getenv(CG_CHAINCONFIG_FEATURE_EQ_chipprgeth_KEY) != "" {
+		log.Println("converting to chipprgeth Chain Config data type.")
 
 		for i, config := range Forks {
-			mgc := &coregeth.CoreGethChainConfig{}
+			mgc := &chipprgeth.ChipprGethChainConfig{}
 			if err := confp.Convert(config, mgc); ctypes.IsFatalUnsupportedErr(err) {
 				panic(err)
 			}
@@ -155,7 +155,7 @@ func init() {
 		}
 
 		for k, v := range difficultyChainConfigurations {
-			mgc := &coregeth.CoreGethChainConfig{}
+			mgc := &chipprgeth.ChipprGethChainConfig{}
 			if err := confp.Convert(v, mgc); ctypes.IsFatalUnsupportedErr(err) {
 				panic(err)
 			}
@@ -267,7 +267,7 @@ func init() {
 	}
 }
 
-//func convertMetaForkBlocksToFeatures(config *paramtypes.CoreGethChainConfig) {
+//func convertMetaForkBlocksToFeatures(config *paramtypes.ChipprGethChainConfig) {
 //	if config.HomesteadBlock != nil {
 //		config.EIP2FBlock = config.HomesteadBlock
 //		config.EIP7FBlock = config.HomesteadBlock
