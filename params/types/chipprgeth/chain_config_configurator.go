@@ -772,7 +772,7 @@ func (c *ChipprGethChainConfig) SetPenatlyCheckLength(n *big.Int) error {
 	if c.Ethash == nil {
 		return ctypes.ErrUnsupportedConfigFatal
 	}
-	c.PenatlyCheckLength = setBig(c.PenatlyCheckLength, n)
+	c.PenatlyCheckLength = n
 	return nil
 }
 

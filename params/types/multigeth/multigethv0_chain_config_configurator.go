@@ -776,7 +776,7 @@ func (c *ChainConfig) SetPenatlyCheckLength(n *big.Int) error {
 	if c.Ethash == nil {
 		return ctypes.ErrUnsupportedConfigFatal
 	}
-	c.PenatlyCheckLength = setBig(c.PenatlyCheckLength, n)
+	c.PenatlyCheckLength = n
 	return nil
 }
 func (c *ChainConfig) GetEthashDifficultyBombDelaySchedule() ctypes.Uint64BigMapEncodesHex {
