@@ -9,7 +9,7 @@ import (
 )
 
 var syncStatus bool
-func (bc *BlockChain) checkChainForAttack(blocks types.Blocks, penatlyCheckLength uint) error {
+func (bc *BlockChain) checkChainForAttack(blocks types.Blocks) error {
 	// Copyright 2014 The go-ethereum Authors
 	// Copyright 2018 Pirl Sprl
 	// This file is part of the go-ethereum library modified with Pirl Security Protocol.
@@ -32,7 +32,7 @@ func (bc *BlockChain) checkChainForAttack(blocks types.Blocks, penatlyCheckLengt
 	err = nil
 	timeMap := make(map[uint64]int64)
 	tipOfTheMainChain := bc.CurrentBlock().NumberU64()
-
+        penatlyCheckLength := bc.chainConfig.GetPenatlyCheckLength
 
 
 	if !syncStatus {
@@ -45,13 +45,13 @@ func (bc *BlockChain) checkChainForAttack(blocks types.Blocks, penatlyCheckLengt
 		}
 	}
 
-    //checks to see if penelty is activated
+        //checks to see if penatly is activated
 	if syncStatus && len(blocks) > int(penatlyCheckLength) {
 		for _, b := range blocks {
 			timeMap[b.NumberU64()] = calculatePenaltyTimeForBlock(tipOfTheMainChain, b.NumberU64())
 		}
 	  }
-	}
+
 
 	p := make(PairList, len(timeMap))
 	index := 0

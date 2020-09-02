@@ -764,12 +764,8 @@ func (c *ChipprGethChainConfig) SetECIP1092Transition(n *uint64) error {
 	return nil
 }
 
-func (c *ChipprGethChainConfig) GetPenatlyCheckLength() *uint64 {
-	if c.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
-		return nil
-	}
-
-	return bigNewU64(c.PenatlyCheckLength)
+func (c *ChipprGethChainConfig) GetPenatlyCheckLength() *big.Int {
+	return c.PenatlyCheckLength
 }
 
 func (c *ChipprGethChainConfig) SetPenatlyCheckLength(n *uint64) error {

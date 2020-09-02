@@ -187,7 +187,7 @@ type EthashConfigurator interface {
 	SetEthashECIP1041Transition(n *uint64) error
 	GetECIP1092Transition() *uint64
 	SetECIP1092Transition(n *uint64) error
-	GetPenatlyCheckLength() *uint64
+	GetPenatlyCheckLength() *big.Int
 	SetPenatlyCheckLength(n *uint64) error
 	GetEthashDifficultyBombDelaySchedule() Uint64BigMapEncodesHex
 	SetEthashDifficultyBombDelaySchedule(m Uint64BigMapEncodesHex) error
