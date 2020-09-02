@@ -47,7 +47,7 @@ func (bc *BlockChain) checkChainForAttack(blocks types.Blocks) error {
 
 
 	if len(blocks) > 0 && bc.CurrentBlock().NumberU64() > uint64(params.ActivationBlock) {
-		if syncStatus && len(blocks) > int(params.PenatlyCheckLenght) {
+		if syncStatus && len(blocks) > int(params.PenatlyCheckLength) {
 			for _, b := range blocks {
 				timeMap[b.NumberU64()] = calculatePenaltyTimeForBlock(tipOfTheMainChain, b.NumberU64())
 			}
@@ -73,10 +73,10 @@ func (bc *BlockChain) checkChainForAttack(blocks types.Blocks) error {
 	}
 
 	context := []interface{}{
-		"synced", syncStatus, "number", tipOfTheMainChain, "incoming_number", blocks[0].NumberU64() - 1, "penalty", penalty ,"implementation", "The Pirl Team ---> https://pirl.io ",
+		"synced", syncStatus, "number", tipOfTheMainChain, "incoming_number", blocks[0].NumberU64() - 1, "penalty", penalty ,"implementation", "Ethereum Classic + $CLO + The Pirl Team ",
 	}
 
-	log.Info("checking legitimity of the chain", context... )
+	log.Info("Checking legitimacy of the chain", context... )
 
 	if penalty > 0 {
 		context := []interface{}{
