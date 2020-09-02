@@ -50,7 +50,7 @@ type ChainConfig struct {
 	ECIP1010PauseBlock  *big.Int `json:"ecip1010PauseBlock,omitempty"` // ECIP1010 pause HF block
 	ECIP1010Length      *big.Int `json:"ecip1010Length,omitempty"`     // ECIP1010 length
 	ECIP1017EraBlock    *big.Int `json:"ecip1017EraBlock,omitempty"`   // ECIP1017 era rounds
-	ECIP1043Block       *big.Int `json:"ecip1017Block,omitempty"`      // ECIP1043 dag freeze
+	ECIP1043Block       *big.Int `json:"ecip1043Block,omitempty"`      // ECIP1043 dag freeze
 	DisposalBlock       *big.Int `json:"disposalBlock,omitempty"`      // Bomb disposal HF block
 
 	MCIP0Block *big.Int `json:"mcip0Block,omitempty"` // Musicoin default block; no MCIP, just denotes chain pref
