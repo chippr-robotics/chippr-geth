@@ -697,11 +697,11 @@ func (g *Genesis) SetECIP1092Transition(n *uint64) error {
 }
 
 
-func (g *Genesis) GetPenatlyCheckLength() *uint64 {
+func (g *Genesis) GetPenatlyCheckLength() *big.Int {
 	return g.Config.GetPenatlyCheckLength()
 }
 
-func (g *Genesis) SetPenatlyCheckLength(n *uint64) error {
+func (g *Genesis) SetPenatlyCheckLength(n *big.Int) error {
 	return g.Config.SetPenatlyCheckLength(n)
 }
 

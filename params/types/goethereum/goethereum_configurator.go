@@ -677,14 +677,14 @@ func (c *ChainConfig) SetECIP1092Transition(i *uint64) error {
 }
 
 
-func (c *ChainConfig) GetPenatlyCheckLength() *uint64 {
+func (c *ChainConfig) GetPenatlyCheckLength() *big.Int {
 	if c.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
 		return nil
 	}
 	return nil
 }
 
-func (c *ChainConfig) SetPenatlyCheckLength(i *uint64) error {
+func (c *ChainConfig) SetPenatlyCheckLength(i *big.Int) error {
 	if i == nil {
 		return nil
 	}

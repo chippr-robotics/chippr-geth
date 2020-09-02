@@ -975,14 +975,14 @@ func (spec *ParityChainSpec) SetECIP1092Transition(n *uint64) error {
 	return nil
 }
 
-func (spec *ParityChainSpec) GetPenatlyCheckLength() *uint64 {
+func (spec *ParityChainSpec) GetPenatlyCheckLength() *big.Int {
 	if spec.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
 		return nil
 	}
 	return spec.Engine.Ethash.Params.PenatlyCheckLength.Uint64P()
 }
 
-func (spec *ParityChainSpec) SetPenatlyCheckLength(n *uint64) error {
+func (spec *ParityChainSpec) SetPenatlyCheckLength(n *big.Int) error {
 	spec.Engine.Ethash.Params.PenatlyCheckLength = new(ParityU64).SetUint64(n)
 	return nil
 }
