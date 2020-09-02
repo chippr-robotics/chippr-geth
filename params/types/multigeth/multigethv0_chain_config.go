@@ -51,6 +51,7 @@ type ChainConfig struct {
 	ECIP1010Length      *big.Int `json:"ecip1010Length,omitempty"`     // ECIP1010 length
 	ECIP1017EraBlock    *big.Int `json:"ecip1017EraBlock,omitempty"`   // ECIP1017 era rounds
 	DisposalBlock       *big.Int `json:"disposalBlock,omitempty"`      // Bomb disposal HF block
+	ECIP1092Block       *big.Int `json:"ecip1092Block,omitempty"`      // ECIP1092 pirlguard activation
 
 	MCIP0Block *big.Int `json:"mcip0Block,omitempty"` // Musicoin default block; no MCIP, just denotes chain pref
 	MCIP3Block *big.Int `json:"mcip3Block,omitempty"` // Musicoin 'UBI Fork' block
