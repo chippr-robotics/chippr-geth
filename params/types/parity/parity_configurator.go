@@ -979,7 +979,7 @@ func (spec *ParityChainSpec) GetPenatlyCheckLength() *big.Int {
 	if spec.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
 		return nil
 	}
-	return PenatlyCheckLength
+	return spec.Engine.Ethash.Params.PenatlyCheckLength
 }
 
 func (spec *ParityChainSpec) SetPenatlyCheckLength(n *big.Int) error {
