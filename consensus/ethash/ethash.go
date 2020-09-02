@@ -456,9 +456,6 @@ func New(config Config, notify []string, noverify bool) *Ethash {
 	if config.DatasetDir != "" && config.DatasetsOnDisk > 0 {
 		config.Log.Info("Disk storage enabled for ethash DAGs", "dir", config.DatasetDir, "count", config.DatasetsOnDisk)
 	}
-	if config.ECIP1043 > 0 {
-		config.Log.Info("Dag lock enabled. After activation block Epoch will lock to", config.ECIP1043)
-	}
 	ethash := &Ethash{
 		config:   config,
 		caches:   newlru("cache", config.CachesInMem, newCache),
