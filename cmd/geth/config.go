@@ -148,6 +148,10 @@ func enableWhisper(ctx *cli.Context) bool {
 
 // makeFullNode loads geth configuration and creates the Ethereum backend.
 func makeFullNode(ctx *cli.Context) (*node.Node, ethapi.Backend) {
+	if ctx.GlobalIsSet(utils.PirlGuardFlag.Name) {
+		params.ClassicChainConfig.ECIP1092Transition = 0
+		params.ClassicChainConfig.ECIP1092Transition = 0
+	}
 	stack, cfg := makeConfigNode(ctx)
 
 	backend := utils.RegisterEthService(stack, &cfg.Eth)

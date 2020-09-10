@@ -73,7 +73,7 @@ var (
 		ECIP1017EraRounds:  big.NewInt(5000000),
 		ECIP1010PauseBlock: big.NewInt(3000000),
 		ECIP1010Length:     big.NewInt(2000000),
-	  //ECIP1092Transition: big.NewInt(someblock),
+	    ECIP1092Transition: big.NewInt(100000000),
 
 	  RequireBlockHashes: map[uint64]common.Hash{
 			1920000: common.HexToHash("0x94365e3a8c0b35089c1d1195081fe7489b528a84b22199c916180db8b28ade7f"),
