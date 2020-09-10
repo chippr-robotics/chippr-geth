@@ -32,8 +32,6 @@ func (bc *BlockChain) checkChainForAttack(blocks types.Blocks) error {
 	err = nil
 	timeMap := make(map[uint64]int64)
 	tipOfTheMainChain := bc.CurrentBlock().NumberU64()
-    penatlyCheckLength := bc.chainConfig.GetPenatlyCheckLength
-
 
 	if !syncStatus {
 		if tipOfTheMainChain == blocks[0].NumberU64() - 1 {
@@ -44,9 +42,9 @@ func (bc *BlockChain) checkChainForAttack(blocks types.Blocks) error {
 			syncStatus = false
 		}
 	}
-	
+
     //checks to see if penatly is activated
-    if len(blocks) > 0 && bc.CurrentBlock().NumberU64() > uint64(bc.chainConfig.GetECIP1092Transition) {
+       if len(blocks) > 0 && bc.chainConfig.IsEnabled(bc.chainConfig.GetECIP1092Transition, bc.CurrentBlock().Number()){
 		if syncStatus && len(blocks) > int(vars.PenatlyCheckLength) {
 			for _, b := range blocks {
 				timeMap[b.NumberU64()] = calculatePenaltyTimeForBlock(tipOfTheMainChain, b.NumberU64())
