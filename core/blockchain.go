@@ -1659,12 +1659,8 @@ func (bc *BlockChain) insertChain(chain types.Blocks, verifySeals bool) (int, er
 	defer close(abort)
 
 	//handle for pirlguard checks when time comes, then pass the penalty check length
-	if bc.chainConfig.IsEnabled(bc.chainConfig.GetECIP1092Transition, bc.CurrentBlock().Number()) {
-          errchain := bc.checkChainForAttack(chain)
-        } else {
-           errchain := ""
-        }
-
+	errchain := bc.checkChainForAttack(chain)
+	
 	// Peek the error for the first block to decide the directing import logic
 	it := newInsertIterator(chain, results, bc.validator)
 
