@@ -71,8 +71,7 @@ var (
 		ECIP1017EraRounds:  big.NewInt(2000000),
 		ECIP1010PauseBlock: nil,
 		ECIP1010Length:     nil,
-	  //ECIP1092Transition: big.NewInt(someblock),
-      //PenatlyCheckLength: big.NewInt(someblock),
+	  //ECIP1092Transition: big.NewInt(),
 
 		RequireBlockHashes: map[uint64]common.Hash{
 			840013: common.HexToHash("0x2ceada2b191879b71a5bcf2241dd9bc50d6d953f1640e62f9c2cee941dc61c9d"),

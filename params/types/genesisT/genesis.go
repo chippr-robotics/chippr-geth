@@ -696,15 +696,6 @@ func (g *Genesis) SetECIP1092Transition(n *uint64) error {
 	return g.Config.SetECIP1092Transition(n)
 }
 
-
-func (g *Genesis) GetPenatlyCheckLength() *big.Int {
-	return g.Config.GetPenatlyCheckLength()
-}
-
-func (g *Genesis) SetPenatlyCheckLength(n *big.Int) error {
-	return g.Config.SetPenatlyCheckLength(n)
-}
-
 func (g *Genesis) GetEthashDifficultyBombDelaySchedule() ctypes.Uint64BigMapEncodesHex {
 	return g.Config.GetEthashDifficultyBombDelaySchedule()
 }
