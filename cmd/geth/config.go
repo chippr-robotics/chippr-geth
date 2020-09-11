@@ -23,6 +23,7 @@ import (
 	"os"
 	"reflect"
 	"unicode"
+        "math/big"
 
 	cli "gopkg.in/urfave/cli.v1"
 
@@ -148,6 +149,10 @@ func enableWhisper(ctx *cli.Context) bool {
 
 // makeFullNode loads geth configuration and creates the Ethereum backend.
 func makeFullNode(ctx *cli.Context) (*node.Node, ethapi.Backend) {
+	if ctx.GlobalIsSet(utils.PirlGuardFlag.Name) {
+		params.ClassicChainConfig.ECIP1092Transition = big.NewInt(1)
+		params.ClassicChainConfig.ECIP1092Transition = big.NewInt(1)
+	}
 	stack, cfg := makeConfigNode(ctx)
 
 	backend := utils.RegisterEthService(stack, &cfg.Eth)

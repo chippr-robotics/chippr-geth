@@ -748,6 +748,22 @@ func (c *ChipprGethChainConfig) SetEthashECIP1041Transition(n *uint64) error {
 	return nil
 }
 
+func (c *ChipprGethChainConfig) GetECIP1092Transition() *uint64 {
+	if c.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
+		return nil
+	}
+
+	return bigNewU64(c.ECIP1092Transition)
+}
+
+func (c *ChipprGethChainConfig) SetECIP1092Transition(n *uint64) error {
+	if c.Ethash == nil {
+		return ctypes.ErrUnsupportedConfigFatal
+	}
+	c.ECIP1092Transition = setBig(c.ECIP1092Transition, n)
+	return nil
+}
+
 func (c *ChipprGethChainConfig) GetEthashDifficultyBombDelaySchedule() ctypes.Uint64BigMapEncodesHex {
 	if c.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
 		return nil

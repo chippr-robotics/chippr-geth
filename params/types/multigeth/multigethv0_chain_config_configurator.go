@@ -750,6 +750,21 @@ func (c *ChainConfig) SetEthashECIP1041Transition(n *uint64) error {
 	return nil
 }
 
+func (c *ChainConfig) GetECIP1092Transition() *uint64 {
+	if c.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
+		return nil
+	}
+	return bigNewU64(c.ECIP1092Block)
+}
+
+func (c *ChainConfig) SetECIP1092Transition(n *uint64) error {
+	if c.Ethash == nil {
+		return ctypes.ErrUnsupportedConfigFatal
+	}
+	c.ECIP1092Block = setBig(c.ECIP1092Block, n)
+	return nil
+}
+
 func (c *ChainConfig) GetEthashDifficultyBombDelaySchedule() ctypes.Uint64BigMapEncodesHex {
 	if c.GetConsensusEngineType() != ctypes.ConsensusEngineT_Ethash {
 		return nil
