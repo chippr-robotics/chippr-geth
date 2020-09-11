@@ -219,7 +219,7 @@ var (
 	defaultSyncMode = eth.DefaultConfig.SyncMode
 	PirlGuardFlag = cli.BoolFlag{
 		Name:  "PirlGuard",
-		Usage: "When enabled, Pirlguard rules will be enforced to control re-org limits. Default pirlgaurd setting is 250 blocks",
+		Usage: "*experimental - yolo* When enabled, Pirlguard rules will be enforced to control re-org limits. Chipprgeth uses pirlgaurd with a block setting of 250 blocks by default. If a majority of nodes are run with this setting, they will follow the same chain and defend against possible malicious reorgs ",
 	}
 	SyncModeFlag    = TextMarshalerFlag{
 		Name:  "syncmode",
