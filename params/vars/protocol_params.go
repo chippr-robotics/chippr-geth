@@ -165,5 +165,5 @@ var (
 	DurationLimit                     = big.NewInt(13)     // The decision boundary on the blocktime duration used to determine whether difficulty should go up or not.
 	EIP2DifficultyIncrementDivisor    = big.NewInt(10)     // Is related to the equilibrium block intervals for the Homestead era difficulty evolution, redefines the value in (YP:43), originally 10 = 0xa
 	EIP100FDifficultyIncrementDivisor = big.NewInt(9)
-    PenatlyCheckLength                = uint64(250)
+	PenatlyCheckLength                = uint64(250)
 )

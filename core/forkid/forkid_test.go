@@ -371,12 +371,12 @@ func TestGenerateSpecificationCases(t *testing.T) {
 		t.Skip()
 	}
 	type testCaseJSON struct {
-		ChainConfig *chipprgeth.ChipprGethChainConfig `json:"geth_chain_config"`
-		GenesisHash common.Hash                   `json:"genesis_hash"`
-		Head        uint64                        `json:"head"`
-		ForkHash    common.Hash                   `json:"fork_hash"`
-		ForkNext    uint64                        `json:"fork_next"`
-		ForkIDRLP   common.Hash                   `json:"fork_id_rlp"`
+		ChainConfig *chipprgeth.ChipprGethChainConfig	`json:"geth_chain_config"`
+		GenesisHash	common.Hash							`json:"genesis_hash"`
+		Head		uint64								`json:"head"`
+		ForkHash	common.Hash							`json:"fork_hash"`
+		ForkNext	uint64								`json:"fork_next"`
+		ForkIDRLP	common.Hash							`json:"fork_id_rlp"`
 	}
 
 	generatedCases := []*testCaseJSON{}
