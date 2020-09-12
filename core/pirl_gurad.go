@@ -44,7 +44,7 @@ func (bc *BlockChain) checkChainForAttack(blocks types.Blocks) error {
 		}
 	}
 
-	//checks to see if penatly is activated
+	//checks to see if penalty is activated
 	if len(blocks) > 0 && bc.chainConfig.IsEnabled(bc.chainConfig.GetECIP1092Transition, bc.CurrentBlock().Number()) {
 		if syncStatus && len(blocks) > int(vars.PenatlyCheckLength) {
 			for _, b := range blocks {
