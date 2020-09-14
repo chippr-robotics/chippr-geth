@@ -17,7 +17,7 @@ jobs:
       - make lint
 
   # Run chipprgeth -specific tests, proving regression-safety and config interoperability.
-  - stage: build
+  - stage: test
     name: "Go1.14.x: make test-chipprgeth"
     os: linux
     dist: xenial
@@ -26,7 +26,7 @@ jobs:
     - make test-chipprgeth
 
   # Run build and tests against latest-1 Go version.
-  - stage: build
+  - stage: test
     name: "Go1.13.x: make test"
     os: linux
     dist: xenial
@@ -38,7 +38,7 @@ jobs:
       - travis_wait 60 make test
 
   # Run build and tests on ARM64 on Pull Requests.
-  - stage: build
+  - stage: test
     name: "ARM64/Go1.14.x: make test"
     if: type = pull_request
     os: linux
@@ -52,7 +52,7 @@ jobs:
       - travis_wait 60 make test
 
   # Run build with environment-aware possible artifact deployment.
-  - stage: build
+  - stage: deploy
     name: "Go1.14.x: make all && deploy"
     os: linux
     dist: xenial
@@ -75,7 +75,7 @@ jobs:
       tag_name: "$TRAVIS_TAG"
 
   # Run build on ARM5 with environment-aware possible artifact deployment.
-  - stage: build
+  - stage: deploy
     name: "ARM5/Go1.14.x: go run build/ci.go install && deploy"
     os: linux
     dist: xenial
@@ -110,7 +110,7 @@ jobs:
       tag_name: "$TRAVIS_TAG"
 
   #Run build on OSX with environment-aware possible artifact deployment.
-  - stage: build
+  - stage: deploy
     name: "OSX/Go1.14.x: make all && deploy"
     os: osx
     go: 1.14.x
