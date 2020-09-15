@@ -161,8 +161,8 @@ func TestCreation(t *testing.T) {
 				{9573000, ID{Hash: checksumToBytes(0x7ba22882), Next: 10500839}},
 				{9573001, ID{Hash: checksumToBytes(0x7ba22882), Next: 10500839}},
 				{10500838, ID{Hash: checksumToBytes(0x7ba22882), Next: 10500839}},
-				{10500839, ID{Hash: checksumToBytes(0x9007bfcc), Next: 0}},
-				{10500840, ID{Hash: checksumToBytes(0x9007bfcc), Next: 0}},
+				{10500839, ID{Hash: checksumToBytes(0x9007bfcc), Next: 100000000}},
+				{10500840, ID{Hash: checksumToBytes(0x9007bfcc), Next: 100000000}},
 			},
 		},
 		{
@@ -178,8 +178,8 @@ func TestCreation(t *testing.T) {
 				{1705549, ID{Hash: checksumToBytes(0x8f3698e0), Next: 2200013}},
 				{1705550, ID{Hash: checksumToBytes(0x8f3698e0), Next: 2200013}},
 				{2200012, ID{Hash: checksumToBytes(0x8f3698e0), Next: 2200013}},
-				{2200013, ID{Hash: checksumToBytes(0x6f402821), Next: 0}},
-				{2200014, ID{Hash: checksumToBytes(0x6f402821), Next: 0}},
+				{2200013, ID{Hash: checksumToBytes(0x6f402821), Next: 100000000}},
+				{2200014, ID{Hash: checksumToBytes(0x6f402821), Next: 100000000}},
 			},
 		},
 		{
@@ -367,16 +367,16 @@ func TestGatherForks(t *testing.T) {
 // TestGenerateSpecificationCases generates markdown formatted specification
 // for network forkid values.
 func TestGenerateSpecificationCases(t *testing.T) {
-	if os.Getenv("chipprgeth_GENERATE_FORKID_TEST_CASES") == "" {
+	if os.Getenv("CHIPPRGETH_GENERATE_FORKID_TEST_CASES") == "" {
 		t.Skip()
 	}
 	type testCaseJSON struct {
 		ChainConfig *chipprgeth.ChipprGethChainConfig `json:"geth_chain_config"`
-		GenesisHash common.Hash                   `json:"genesis_hash"`
-		Head        uint64                        `json:"head"`
-		ForkHash    common.Hash                   `json:"fork_hash"`
-		ForkNext    uint64                        `json:"fork_next"`
-		ForkIDRLP   common.Hash                   `json:"fork_id_rlp"`
+		GenesisHash common.Hash                       `json:"genesis_hash"`
+		Head        uint64                            `json:"head"`
+		ForkHash    common.Hash                       `json:"fork_hash"`
+		ForkNext    uint64                            `json:"fork_next"`
+		ForkIDRLP   common.Hash                       `json:"fork_id_rlp"`
 	}
 
 	generatedCases := []*testCaseJSON{}

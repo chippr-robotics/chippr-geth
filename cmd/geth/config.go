@@ -20,10 +20,10 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
+	"math/big"
 	"os"
 	"reflect"
 	"unicode"
-        "math/big"
 
 	cli "gopkg.in/urfave/cli.v1"
 
