@@ -39,7 +39,8 @@ const (
 	datasetGrowthBytes = 1 << 23 // Dataset growth per epoch
 	cacheInitBytes     = 1 << 24 // Bytes in cache at genesis
 	cacheGrowthBytes   = 1 << 17 // Cache growth per epoch
-	epochLength        = 30000   // Blocks per epoch
+	oldEpochLength     = 30000   // Blocks per epoch pre ECIP-1099 activation
+	newEpochLength     = 60000   // Blocks per epoch post ECIP-1099 activation
 	mixBytes           = 128     // Width of mix
 	hashBytes          = 64      // Hash length in bytes
 	hashWords          = 16      // Number of 32 bit ints in a hash
@@ -48,14 +49,35 @@ const (
 	loopAccesses       = 64      // Number of accesses in hashimoto loop
 )
 
+// Activation block for ECIP-1099 (etchash)
+// mainnet: 11460000
+// mordor: 2340000
+// TODO: Move to chain configs - iquidus
+const ecip1099Block = uint64(11460000)
+
+// calcEpochLength returns the epoch length for a given block number (ECIP-1099)
+func calcEpochLength(block uint64) uint64 {
+	if block < ecip1099Block {
+		return oldEpochLength
+	}
+	return newEpochLength
+}
+
+// calcEpoch returns the epoch for a given block number (ECIP-1099)
+func calcEpoch(block uint64) (uint64, uint64) {
+	epochLength := calcEpochLength(block)
+	epoch := block / epochLength
+	return epoch, epochLength
+}
+
 // cacheSize returns the size of the ethash verification cache that belongs to a certain
 // block number.
 func cacheSize(block uint64) uint64 {
-	epoch := int(block / epochLength)
+	epoch, _ := calcEpoch(block)
 	if epoch < maxEpoch {
-		return cacheSizes[epoch]
+		return cacheSizes[int(epoch)]
 	}
-	return calcCacheSize(epoch)
+	return calcCacheSize(int(epoch))
 }
 
 // calcCacheSize calculates the cache size for epoch. The cache size grows linearly,
@@ -72,11 +94,11 @@ func calcCacheSize(epoch int) uint64 {
 // datasetSize returns the size of the ethash mining dataset that belongs to a certain
 // block number.
 func datasetSize(block uint64) uint64 {
-	epoch := int(block / epochLength)
+	epoch, _ := calcEpoch(block)
 	if epoch < maxEpoch {
-		return datasetSizes[epoch]
+		return datasetSizes[int(epoch)]
 	}
-	return calcDatasetSize(epoch)
+	return calcDatasetSize(int(epoch))
 }
 
 // calcDatasetSize calculates the dataset size for epoch. The dataset size grows linearly,
@@ -120,11 +142,11 @@ func makeHasher(h hash.Hash) hasher {
 // dataset.
 func seedHash(block uint64) []byte {
 	seed := make([]byte, 32)
-	if block < epochLength {
+	if block < oldEpochLength {
 		return seed
 	}
 	keccak256 := makeHasher(sha3.NewLegacyKeccak256())
-	for i := 0; i < int(block/epochLength); i++ {
+	for i := 0; i < int(block/oldEpochLength); i++ {
 		keccak256(seed, seed)
 	}
 	return seed
@@ -136,7 +158,7 @@ func seedHash(block uint64) []byte {
 // algorithm from Strict Memory Hard Hashing Functions (2014). The output is a
 // set of 524288 64-byte values.
 // This method places the result into dest in machine byte order.
-func generateCache(dest []uint32, epoch uint64, seed []byte) {
+func generateCache(dest []uint32, epoch uint64, epochLength uint64, seed []byte) {
 	// Print some debug logs to allow analysis on low end devices
 	logger := log.New("epoch", epoch)
 
@@ -148,7 +170,7 @@ func generateCache(dest []uint32, epoch uint64, seed []byte) {
 		if elapsed > 3*time.Second {
 			logFn = logger.Info
 		}
-		logFn("Generated ethash verification cache", "elapsed", common.PrettyDuration(elapsed))
+		logFn("Generated ethash verification cache", "epochLength", epochLength, "elapsed", common.PrettyDuration(elapsed))
 	}()
 	// Convert our destination slice to a byte buffer
 	header := *(*reflect.SliceHeader)(unsafe.Pointer(&dest))
@@ -172,7 +194,7 @@ func generateCache(dest []uint32, epoch uint64, seed []byte) {
 			case <-done:
 				return
 			case <-time.After(3 * time.Second):
-				logger.Info("Generating ethash verification cache", "percentage", atomic.LoadUint32(&progress)*100/uint32(rows)/4, "elapsed", common.PrettyDuration(time.Since(start)))
+				logger.Info("Generating ethash verification cache", "epochLength", epochLength, "percentage", atomic.LoadUint32(&progress)*100/uint32(rows)/4, "elapsed", common.PrettyDuration(time.Since(start)))
 			}
 		}
 	}()
@@ -264,7 +286,7 @@ func generateDatasetItem(cache []uint32, index uint32, keccak512 hasher) []byte 
 
 // generateDataset generates the entire ethash dataset for mining.
 // This method places the result into dest in machine byte order.
-func generateDataset(dest []uint32, epoch uint64, cache []uint32) {
+func generateDataset(dest []uint32, epoch uint64, epochLength uint64, cache []uint32) {
 	// Print some debug logs to allow analysis on low end devices
 	logger := log.New("epoch", epoch)
 
@@ -276,7 +298,7 @@ func generateDataset(dest []uint32, epoch uint64, cache []uint32) {
 		if elapsed > 3*time.Second {
 			logFn = logger.Info
 		}
-		logFn("Generated ethash verification cache", "elapsed", common.PrettyDuration(elapsed))
+		logFn("Generated ethash verification cache", "epochLength", epochLength, "elapsed", common.PrettyDuration(elapsed))
 	}()
 
 	// Figure out whether the bytes need to be swapped for the machine
@@ -320,7 +342,7 @@ func generateDataset(dest []uint32, epoch uint64, cache []uint32) {
 				copy(dataset[index*hashBytes:], item)
 
 				if status := atomic.AddUint32(&progress, 1); status%percent == 0 {
-					logger.Info("Generating DAG in progress", "percentage", uint64(status*100)/(size/hashBytes), "elapsed", common.PrettyDuration(time.Since(start)))
+					logger.Info("Generating DAG in progress", "epochLength", epochLength, "percentage", uint64(status*100)/(size/hashBytes), "elapsed", common.PrettyDuration(time.Since(start)))
 				}
 			}
 		}(i)
