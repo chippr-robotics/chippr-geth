@@ -1,4 +1,4 @@
-#This is currently an experimental verison of geth for ethereum classic. 
+#This is currently an experimental verison of multi-geth for ethereum classic. 
 
 ## Chipprgeth: An Ethereum Protocol Provider
 
