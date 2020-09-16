@@ -162,7 +162,7 @@ func TestCreation(t *testing.T) {
 				{9573001, ID{Hash: checksumToBytes(0x7ba22882), Next: 10500839}},
 				{10500838, ID{Hash: checksumToBytes(0x7ba22882), Next: 10500839}},
 				{10500839, ID{Hash: checksumToBytes(0x9007bfcc), Next: 100000000}},
-				{10500840, ID{Hash: checksumToBytes(0x9007bfcc), Next: 100000000}},
+				{100000000, ID{Hash: checksumToBytes(0x91a12654), Next: 0}},
 			},
 		},
 		{
@@ -178,8 +178,8 @@ func TestCreation(t *testing.T) {
 				{1705549, ID{Hash: checksumToBytes(0x8f3698e0), Next: 2200013}},
 				{1705550, ID{Hash: checksumToBytes(0x8f3698e0), Next: 2200013}},
 				{2200012, ID{Hash: checksumToBytes(0x8f3698e0), Next: 2200013}},
-				{2200013, ID{Hash: checksumToBytes(0x6f402821), Next: 100000000}},
-				{2200014, ID{Hash: checksumToBytes(0x6f402821), Next: 100000000}},
+				{2200013, ID{Hash: checksumToBytes(0x6f402821), Next: 0}},
+				{2200014, ID{Hash: checksumToBytes(0x6f402821), Next: 0}},
 			},
 		},
 		{
@@ -197,8 +197,9 @@ func TestCreation(t *testing.T) {
 				{301243, ID{Hash: checksumToBytes(0x604f6ee1), Next: 999983}},
 				{301244, ID{Hash: checksumToBytes(0x604f6ee1), Next: 999983}},
 				{999982, ID{Hash: checksumToBytes(0x604f6ee1), Next: 999983}},
-				{999983, ID{Hash: checksumToBytes(0xf42f5539), Next: 0}},
-				{999984, ID{Hash: checksumToBytes(0xf42f5539), Next: 0}},
+				{999983, ID{Hash: checksumToBytes(0xf42f5539), Next: 100000000}},
+				{999984, ID{Hash: checksumToBytes(0xf42f5539), Next: 100000000}},
+				{100000000, ID{Hash: checksumToBytes(0x06b793f5), Next: 0}},
 			},
 		},
 	}
@@ -321,7 +322,7 @@ func TestGatherForks(t *testing.T) {
 		{
 			"classic",
 			params.ClassicChainConfig,
-			[]uint64{1150000, 2500000, 3000000, 5000000, 5900000, 8772000, 9573000, 10500839},
+			[]uint64{1150000, 2500000, 3000000, 5000000, 5900000, 8772000, 9573000, 10500839,100000000},
 		},
 		{
 			"mainnet",
@@ -331,7 +332,7 @@ func TestGatherForks(t *testing.T) {
 		{
 			"mordor",
 			params.MordorChainConfig,
-			[]uint64{301_243, 999_983},
+			[]uint64{301_243, 999_983, 100000000},
 		},
 		{
 			"kotti",
