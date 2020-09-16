@@ -36,6 +36,7 @@ import (
 	"github.com/ethereum/go-ethereum/params/types/genesisT"
 	"github.com/ethereum/go-ethereum/params/vars"
 	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/ethereum/go-ethereum/trie"
 )
 
 // Tests in this file duplicate select tests from blockchain_test.go,
@@ -189,18 +190,16 @@ func TestFastVsFullChains_RemoteFreezer(t *testing.T) {
 	}
 
 	// Test a rollback, causing the ancient store to use the TruncateAncient method.
-	pinch := len(blocks) / 4
-	rollbackHeaders := []common.Hash{}
-	for _, v := range headers[pinch:] {
-		rollbackHeaders = append(rollbackHeaders, v.Hash())
+	if err := ancient.SetHead(0); err != nil {
+		t.Fatalf("set head err: %v", err)
 	}
-	ancient.Rollback(rollbackHeaders)
 
 	// Reinsert the rolled-back headers and receipts.
-	if n, err := ancient.InsertHeaderChain(headers[pinch:], 1); err != nil {
-		t.Fatalf("failed to insert header %d: %v", n, err)
+	if n, err := ancient.InsertHeaderChain(headers, 1); err != nil {
+		t.Log(ancient.CurrentHeader().Number.Uint64())
+		t.Fatalf("failed to insert header %d (#%d): %v", n, headers[n].Number.Uint64(), err)
 	}
-	if n, err := ancient.InsertReceiptChain(blocks[pinch:], receipts, ancientLimit); err != nil {
+	if n, err := ancient.InsertReceiptChain(blocks, receipts, ancientLimit); err != nil {
 		t.Fatalf("failed to insert receipt %d: %v", n, err)
 	}
 
@@ -232,12 +231,12 @@ func TestFastVsFullChains_RemoteFreezer(t *testing.T) {
 		}
 		if fblock, arblock, anblock := fast.GetBlockByHash(hash), archive.GetBlockByHash(hash), ancient.GetBlockByHash(hash); fblock.Hash() != arblock.Hash() || anblock.Hash() != arblock.Hash() {
 			t.Errorf("block #%d [%x]: block mismatch: fastdb %v, ancientdb %v, archivedb %v", num, hash, fblock, anblock, arblock)
-		} else if types.DeriveSha(fblock.Transactions()) != types.DeriveSha(arblock.Transactions()) || types.DeriveSha(anblock.Transactions()) != types.DeriveSha(arblock.Transactions()) {
+		} else if types.DeriveSha(fblock.Transactions(), new(trie.Trie)) != types.DeriveSha(arblock.Transactions(), new(trie.Trie)) || types.DeriveSha(anblock.Transactions(), new(trie.Trie)) != types.DeriveSha(arblock.Transactions(), new(trie.Trie)) {
 			t.Errorf("block #%d [%x]: transactions mismatch: fastdb %v, ancientdb %v, archivedb %v", num, hash, fblock.Transactions(), anblock.Transactions(), arblock.Transactions())
 		} else if types.CalcUncleHash(fblock.Uncles()) != types.CalcUncleHash(arblock.Uncles()) || types.CalcUncleHash(anblock.Uncles()) != types.CalcUncleHash(arblock.Uncles()) {
 			t.Errorf("block #%d [%x]: uncles mismatch: fastdb %v, ancientdb %v, archivedb %v", num, hash, fblock.Uncles(), anblock, arblock.Uncles())
 		}
-		if freceipts, anreceipts, areceipts := rawdb.ReadReceipts(fastDb, hash, *rawdb.ReadHeaderNumber(fastDb, hash), fast.Config()), rawdb.ReadReceipts(ancientDb, hash, *rawdb.ReadHeaderNumber(ancientDb, hash), fast.Config()), rawdb.ReadReceipts(archiveDb, hash, *rawdb.ReadHeaderNumber(archiveDb, hash), fast.Config()); types.DeriveSha(freceipts) != types.DeriveSha(areceipts) {
+		if freceipts, anreceipts, areceipts := rawdb.ReadReceipts(fastDb, hash, *rawdb.ReadHeaderNumber(fastDb, hash), fast.Config()), rawdb.ReadReceipts(ancientDb, hash, *rawdb.ReadHeaderNumber(ancientDb, hash), fast.Config()), rawdb.ReadReceipts(archiveDb, hash, *rawdb.ReadHeaderNumber(archiveDb, hash), fast.Config()); types.DeriveSha(freceipts, new(trie.Trie)) != types.DeriveSha(areceipts, new(trie.Trie)) {
 			t.Errorf("block #%d [%x]: receipts mismatch: fastdb %v, ancientdb %v, archivedb %v", num, hash, freceipts, anreceipts, areceipts)
 		}
 	}
@@ -249,77 +248,6 @@ func TestFastVsFullChains_RemoteFreezer(t *testing.T) {
 		if anhash, arhash := rawdb.ReadCanonicalHash(ancientDb, uint64(i)), rawdb.ReadCanonicalHash(archiveDb, uint64(i)); anhash != arhash {
 			t.Errorf("block #%d: canonical hash mismatch: ancientdb %v, archivedb %v", i, anhash, arhash)
 		}
-	}
-}
-
-func TestBlockchainRecovery_RemoteFreezer(t *testing.T) {
-	// Configure and generate a sample block chain
-	var (
-		gendb   = rawdb.NewMemoryDatabase()
-		key, _  = crypto.HexToECDSA("b71c71a67e1177ad4e901695e1b4b9ee17ae16c6668d313eac2f96dbcda3f291")
-		address = crypto.PubkeyToAddress(key.PublicKey)
-		funds   = big.NewInt(1000000000)
-		gspec   = &genesisT.Genesis{Config: params.TestChainConfig, Alloc: genesisT.GenesisAlloc{address: {Balance: funds}}}
-		genesis = MustCommitGenesis(gendb, gspec)
-	)
-	height := uint64(1024)
-	blocks, receipts := GenerateChain(gspec.Config, genesis, ethash.NewFaker(), gendb, int(height), nil)
-
-	// Import the chain as a ancient-first node and ensure all pointers are updated
-	// Freezer style fast import the chain.
-	freezerRPCEndpoint, server, ancientDb := testRPCRemoteFreezer(t)
-	if n, err := ancientDb.Ancients(); err != nil {
-		t.Fatalf("ancients: %v", err)
-	} else if n != 0 {
-		t.Logf("truncating pre-existing ancients from: %d (truncating to 0)", n)
-		err = ancientDb.TruncateAncients(0)
-		if err != nil {
-			t.Fatalf("truncate ancients: %v", err)
-		}
-	}
-	if server != nil {
-		defer os.RemoveAll(filepath.Dir(freezerRPCEndpoint))
-		defer server.Stop()
-	}
-	defer ancientDb.Close() // Cause the Close method to be called.
-	defer func() {
-		// A deferred truncation to 0 will allow a single freezer instance to
-		// handle multiple tests in serial.
-		if err := ancientDb.TruncateAncients(0); err != nil {
-			t.Fatalf("deferred truncate ancients error: %v", err)
-		}
-	}()
-
-	MustCommitGenesis(ancientDb, gspec)
-	ancient, _ := NewBlockChain(ancientDb, nil, gspec.Config, ethash.NewFaker(), vm.Config{}, nil, nil)
-
-	headers := make([]*types.Header, len(blocks))
-	for i, block := range blocks {
-		headers[i] = block.Header()
-	}
-	if n, err := ancient.InsertHeaderChain(headers, 1); err != nil {
-		t.Fatalf("failed to insert header %d: %v", n, err)
-	}
-	if n, err := ancient.InsertReceiptChain(blocks, receipts, uint64(3*len(blocks)/4)); err != nil {
-		t.Fatalf("failed to insert receipt %d: %v", n, err)
-	}
-	ancient.Stop()
-
-	// Destroy head fast block manually
-	midBlock := blocks[len(blocks)/2]
-	rawdb.WriteHeadFastBlockHash(ancientDb, midBlock.Hash())
-
-	// Reopen broken blockchain again
-	ancient, _ = NewBlockChain(ancientDb, nil, gspec.Config, ethash.NewFaker(), vm.Config{}, nil, nil)
-	defer ancient.Stop()
-	if num := ancient.CurrentBlock().NumberU64(); num != 0 {
-		t.Errorf("head block mismatch: have #%v, want #%v", num, 0)
-	}
-	if num := ancient.CurrentFastBlock().NumberU64(); num != midBlock.NumberU64() {
-		t.Errorf("head fast-block mismatch: have #%v, want #%v", num, midBlock.NumberU64())
-	}
-	if num := ancient.CurrentHeader().Number.Uint64(); num != midBlock.NumberU64() {
-		t.Errorf("head header mismatch: have #%v, want #%v", num, midBlock.NumberU64())
 	}
 }
 
